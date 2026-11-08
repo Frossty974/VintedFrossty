@@ -25,17 +25,17 @@ export function ScoreRing({ score, size = 120, delay = 0 }: { score: number; siz
       <svg ref={ref} viewBox="0 0 100 100" className="size-full -rotate-90">
         <defs>
           <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#4c7dff" />
-            <stop offset=".6" stopColor="#8b6cff" />
-            <stop offset="1" stopColor="#3fd0e8" />
+            <stop offset="0" stopColor="#c7ff3d" />
+            <stop offset=".6" stopColor="#c7ff3d" />
+            <stop offset="1" stopColor="#e6ff9c" />
           </linearGradient>
         </defs>
-        <circle cx="50" cy="50" r={r} fill="none" stroke="rgb(255 255 255 / 0.07)" strokeWidth="5" />
-        <motion.circle cx="50" cy="50" r={r} fill="none" stroke={`url(#${id})`} strokeWidth="5" strokeLinecap="round" strokeDasharray={c} style={{ strokeDashoffset: offset }} />
+        <circle cx="50" cy="50" r={r} fill="none" stroke="rgb(244 240 230 / 0.1)" strokeWidth="7" />
+        <motion.circle cx="50" cy="50" r={r} fill="none" stroke={`url(#${id})`} strokeWidth="7" strokeLinecap="butt" strokeDasharray={c} style={{ strokeDashoffset: offset }} />
       </svg>
       <div className="absolute inset-0 grid place-items-center" aria-hidden="true">
         <div className="text-center leading-none">
-          <span className="font-semibold tracking-tight" style={{ fontSize: size * 0.27 }}>
+          <span className="display" style={{ fontSize: size * 0.27 }}>
             <motion.span>{text}</motion.span>
             <span className="text-muted" style={{ fontSize: size * 0.14 }}> %</span>
           </span>

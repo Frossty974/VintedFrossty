@@ -131,7 +131,7 @@ export function Quiz({ onClose, variant = "modal" }: { onClose?: () => void; var
             <span aria-live="polite">{step < 0 ? "10 questions · 2 min" : analyzing ? "Analyse" : `${String(step + 1).padStart(2, "0")} / ${total}`}</span>
           </div>
           <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-white/[0.06]" role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={step < 0 ? 0 : step} aria-label="Progression du questionnaire">
-            <motion.div className="h-full rounded-full bg-[linear-gradient(90deg,#4c7dff,#8b6cff,#3fd0e8)]" animate={{ width: `${Math.max(progress * 100, step < 0 ? 0 : 3)}%` }} transition={{ duration: 0.6, ease }} />
+            <motion.div className="h-full rounded-full bg-lime" animate={{ width: `${Math.max(progress * 100, step < 0 ? 0 : 3)}%` }} transition={{ duration: 0.6, ease }} />
           </div>
         </div>
         {onClose && (
@@ -155,7 +155,7 @@ export function Quiz({ onClose, variant = "modal" }: { onClose?: () => void; var
           ) : (
             q && (
               <motion.fieldset key={q.id} custom={dir} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.45, ease }} className="min-w-0">
-                <legend className="text-[clamp(1.5rem,3.6vw,2.15rem)] font-semibold leading-tight tracking-[-0.03em] text-balance">{q.title}</legend>
+                <legend className="text-[clamp(1.5rem,3.6vw,2.15rem)] display text-balance">{q.title}</legend>
                 {q.help && <p className="mt-3 text-[0.95rem] leading-relaxed text-muted">{q.help}</p>}
                 <div className="mt-7 grid gap-2.5" role={q.multiple ? "group" : "radiogroup"} aria-label={q.title}>
                   {q.options.map((o, i) => {
@@ -168,13 +168,13 @@ export function Quiz({ onClose, variant = "modal" }: { onClose?: () => void; var
                         aria-checked={selected}
                         data-autofocus={i === 0 ? true : undefined}
                         onClick={() => choose(o.id)}
-                        className={`group/opt relative flex min-h-14 w-full items-center gap-4 rounded-2xl border px-4 py-3 text-left transition-all duration-300 ${
+                        className={`group/opt relative flex min-h-14 w-full items-center gap-4 rounded-md border px-4 py-3 text-left transition-all duration-300 ${
                           selected
-                            ? "border-electric/60 bg-electric/[0.1] shadow-[0_0_0_1px_rgb(76_125_255/0.25),0_10px_40px_-12px_rgb(76_125_255/0.5)]"
+                            ? "border-electric/60 bg-electric/[0.1]"
                             : "border-line bg-white/[0.02] hover:border-line-strong hover:bg-white/[0.045]"
                         }`}
                       >
-                        <span className={`grid size-7 shrink-0 place-items-center rounded-lg border font-mono text-xs transition ${selected ? "border-transparent bg-[linear-gradient(135deg,#4c7dff,#8b6cff)] text-white" : "border-line-strong text-faint group-hover/opt:text-muted"}`}>
+                        <span className={`grid size-7 shrink-0 place-items-center rounded-lg border font-mono text-xs transition ${selected ? "border-transparent bg-lime text-[#121212]" : "border-line-strong text-faint group-hover/opt:text-muted"}`}>
                           {selected ? <Icon name="check" className="size-3.5" strokeWidth={2.2} /> : i + 1}
                         </span>
                         <span className={`text-[0.98rem] ${selected ? "text-fg" : "text-fg/85"}`}>{o.label}</span>
@@ -211,12 +211,11 @@ function Intro({ onStart }: { onStart: () => void }) {
   return (
     <div className="mx-auto max-w-lg py-4 text-center sm:py-8">
       <div className="relative mx-auto grid size-20 place-items-center">
-        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgb(76_125_255/0.45),transparent_70%)] blur-xl" />
-        <div className="relative grid size-16 place-items-center rounded-2xl border border-line-strong bg-white/[0.04]">
-          <Icon name="compass" className="size-8 text-[#9db4ff]" />
+        <div className="relative grid size-16 place-items-center rounded-md border border-line-strong bg-white/[0.04]">
+          <Icon name="compass" className="size-8 text-lime" />
         </div>
       </div>
-      <h2 className="mt-8 text-[clamp(1.7rem,4vw,2.4rem)] font-semibold leading-tight tracking-[-0.03em]">Découvre ce qui te correspond.</h2>
+      <h2 className="mt-8 text-[clamp(1.7rem,4vw,2.4rem)] display">Découvre ce qui te correspond.</h2>
       <p className="mt-4 leading-relaxed text-muted">
         10 questions sur ta situation, tes envies et tes contraintes. Notre algorithme compare ton profil aux exigences réelles de chaque domaine : temps, budget, niveau, type de travail.
       </p>
@@ -249,10 +248,10 @@ function Analyzing() {
         <div className="absolute inset-0 animate-spin rounded-full border border-transparent border-t-electric border-r-violet [animation-duration:1.4s]" />
         <div className="absolute inset-3 animate-spin rounded-full border border-transparent border-b-cyan [animation-direction:reverse] [animation-duration:2s]" />
         <div className="absolute inset-0 grid place-items-center">
-          <div className="size-3 rounded-full bg-white shadow-[0_0_24px_6px_rgb(76_125_255/0.6)]" />
+          <div className="size-3 rounded-full bg-white" />
         </div>
       </div>
-      <p className="mt-8 text-xl font-semibold tracking-tight">Analyse de ton profil</p>
+      <p className="mt-8 text-xl font-bold">Analyse de ton profil</p>
       <ul className="mt-5 grid gap-2 text-sm" aria-live="polite">
         {steps.map((s, j) => (
           <li key={s} className={`flex items-center justify-center gap-2 transition-colors duration-300 ${j <= i ? "text-fg/90" : "text-faint"}`}>

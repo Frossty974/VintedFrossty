@@ -1,8 +1,7 @@
-# Kairos — plateforme d'orientation et de formation
+# NO LARP — plateforme d'orientation et de formation
 
 Site Next.js d'une plateforme qui aide les 16-30 ans à découvrir les domaines qui leur correspondent (e-commerce, marchés financiers, IA et création de contenu, business digital) et à se former.
 
-> « Kairos » est un nom provisoire : il se change dans `src/data/site.ts`.
 
 ## Démarrer
 

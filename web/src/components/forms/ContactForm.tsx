@@ -54,7 +54,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="ring-gradient grid gap-5 rounded-[28px] bg-[linear-gradient(180deg,#0e1226,#090b16)] p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="ring-gradient grid gap-5 rounded-lg bg-night p-6 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Nom" name="name" autoComplete="name" error={errors.name} />
         <Field label="Adresse e-mail" name="email" type="email" autoComplete="email" error={errors.email} />
@@ -69,7 +69,7 @@ export function ContactForm() {
             </label>
           ))}
         </div>
-        {errors.subject && <p className="mt-1.5 text-xs text-[#ff9c9c]">{errors.subject}</p>}
+        {errors.subject && <p className="mt-1.5 text-xs text-red">{errors.subject}</p>}
       </fieldset>
       <Field label="Message" name="message" textarea error={errors.message} hint="20 caractères minimum." />
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />

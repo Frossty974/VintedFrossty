@@ -12,7 +12,7 @@ export function ProgramAccordion({ modules }: { modules: CourseModule[] }) {
   return (
     <div>
       <div className="mb-3 flex justify-end">
-        <button type="button" onClick={() => setOpen(allOpen ? new Set() : new Set(modules.map((_, i) => i)))} className="text-sm text-[#9db4ff] hover:text-fg">
+        <button type="button" onClick={() => setOpen(allOpen ? new Set() : new Set(modules.map((_, i) => i)))} className="text-sm text-lime hover:text-fg">
           {allOpen ? "Tout replier" : "Tout déplier"}
         </button>
       </div>
@@ -20,9 +20,9 @@ export function ProgramAccordion({ modules }: { modules: CourseModule[] }) {
         {modules.map((m, i) => {
           const isOpen = open.has(i);
           return (
-            <li key={m.title} className={`overflow-hidden rounded-2xl border transition-colors ${isOpen ? "border-line-strong bg-white/[0.025]" : "border-line"}`}>
+            <li key={m.title} className={`overflow-hidden rounded-md border transition-colors ${isOpen ? "border-line-strong bg-white/[0.025]" : "border-line"}`}>
               <button type="button" onClick={() => toggle(i)} aria-expanded={isOpen} className="flex w-full items-center gap-4 p-5 text-left">
-                <span className="grid size-9 shrink-0 place-items-center rounded-xl border border-line-strong font-mono text-xs text-[#9db4ff]">{String(i + 1).padStart(2, "0")}</span>
+                <span className="grid size-9 shrink-0 place-items-center rounded-md border border-line-strong font-mono text-xs text-lime">{String(i + 1).padStart(2, "0")}</span>
                 <span className="flex-1">
                   <span className="block font-medium">{m.title}</span>
                   <span className="mt-0.5 block text-xs text-faint">{m.lessons.length} leçons · {m.hours.toLocaleString("fr-FR")} h</span>

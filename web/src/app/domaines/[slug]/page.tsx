@@ -31,17 +31,16 @@ export default async function DomainPage({ params }: Props) {
       <section className="relative overflow-hidden pb-14 pt-28 sm:pt-36">
         <div className="pointer-events-none absolute inset-0">
           <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="absolute -top-40 left-1/3 h-[520px] w-[820px] rounded-full bg-[radial-gradient(closest-side,rgb(76_125_255/0.16),transparent)]" />
         </div>
         <div className="container-x relative">
           <nav aria-label="Fil d'Ariane" className="flex items-center gap-2 text-sm text-faint">
             <Link href="/domaines" className="hover:text-fg">Domaines</Link><span>/</span><span className="text-muted">{d.name}</span>
           </nav>
           <Reveal>
-            <div className={`mt-8 grid size-14 place-items-center rounded-2xl border border-line-strong bg-white/[0.03] ${accentText[d.accent]}`}>
+            <div className={`mt-8 grid size-14 place-items-center rounded-md border border-line-strong bg-white/[0.03] ${accentText[d.accent]}`}>
               <Icon name={d.icon} className="size-7" />
             </div>
-            <h1 className="mt-6 text-[clamp(2.4rem,6vw,4.4rem)] font-semibold leading-[1] tracking-[-0.045em] text-gradient">{d.name}</h1>
+            <h1 className="mt-6 text-[clamp(2.4rem,6vw,4.4rem)] display leading-[1] text-gradient">{d.name}</h1>
             <p className="mt-5 max-w-2xl text-xl leading-relaxed text-muted">{d.tagline}</p>
           </Reveal>
         </div>
@@ -59,7 +58,7 @@ export default async function DomainPage({ params }: Props) {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <dl className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line">
+            <dl className="grid gap-px overflow-hidden rounded-lg border border-line bg-line">
               {[
                 { k: "Temps conseillé", v: d.weeklyTime, icon: "clock" as const },
                 { k: "Pour démarrer", v: d.timeToStart, icon: "flag" as const },
@@ -83,7 +82,7 @@ export default async function DomainPage({ params }: Props) {
 
         <section className="mt-24">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="text-[clamp(1.8rem,3.6vw,2.6rem)] font-semibold tracking-[-0.035em]">Les formations du domaine</h2>
+            <h2 className="text-[clamp(1.8rem,3.6vw,2.6rem)] display">Les formations du domaine</h2>
             <ButtonLink href={`/formations?domaine=${d.slug}`} variant="secondary" arrow>Filtrer le catalogue</ButtonLink>
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -91,8 +90,8 @@ export default async function DomainPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="mt-24 rounded-[28px] border border-line bg-white/[0.02] p-8 text-center sm:p-12">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Ce domaine est-il fait pour toi ?</h2>
+        <section className="mt-24 rounded-lg border border-line bg-white/[0.02] p-8 text-center sm:p-12">
+          <h2 className="text-2xl font-bold sm:text-3xl">Ce domaine est-il fait pour toi ?</h2>
           <p className="mx-auto mt-3 max-w-xl text-muted">Le questionnaire compare ton temps, ton budget, ton niveau et tes envies aux exigences de chaque domaine.</p>
           <div className="mt-7 flex justify-center"><FindPathButton /></div>
         </section>
@@ -103,7 +102,7 @@ export default async function DomainPage({ params }: Props) {
 
 function ListCard({ title, icon, tone, items }: { title: string; icon: "spark" | "alert"; tone: string; items: string[] }) {
   return (
-    <div className="rounded-3xl border border-line bg-white/[0.02] p-6">
+    <div className="rounded-lg border border-line bg-white/[0.02] p-6">
       <h2 className={`flex items-center gap-2 font-medium ${tone}`}><Icon name={icon} className="size-4" />{title}</h2>
       <ul className="mt-4 grid gap-3">
         {items.map((it) => <li key={it} className="text-sm leading-relaxed text-muted">{it}</li>)}

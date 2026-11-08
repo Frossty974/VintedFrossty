@@ -74,9 +74,9 @@ export function EnrollPanel({ course }: { course: Course }) {
 
   return (
     <div className="grid gap-5">
-      <div className="ring-gradient rounded-3xl bg-[linear-gradient(180deg,#0e1226,#090b16)] p-6 sm:p-8">
+      <div className="ring-gradient rounded-lg bg-night p-6 sm:p-8">
         <div className="flex items-baseline justify-between gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">{paymentsOpen ? "Paiement sécurisé" : "Les inscriptions ouvrent bientôt"}</h2>
+          <h2 className="text-xl font-bold">{paymentsOpen ? "Paiement sécurisé" : "Les inscriptions ouvrent bientôt"}</h2>
           <span className="text-2xl font-semibold">{formatPrice(course.price)}</span>
         </div>
         {paymentsOpen ? (
@@ -108,8 +108,8 @@ export function EnrollPanel({ course }: { course: Course }) {
         {status && <div className="mt-4"><FormMessage tone={status.tone}>{status.text}</FormMessage></div>}
       </div>
 
-      <div className="rounded-3xl border border-line bg-white/[0.02] p-6 sm:p-8">
-        <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight"><Icon name="eye" className="size-5 text-cyan" />Accès aperçu gratuit</h2>
+      <div className="rounded-lg border border-line bg-white/[0.02] p-6 sm:p-8">
+        <h2 className="flex items-center gap-2 text-lg font-bold"><Icon name="eye" className="size-5 text-cyan" />Accès aperçu gratuit</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           Découvre l&apos;espace de formation dès maintenant : programme complet, suivi de progression et ressources. Les vidéos seront ajoutées à l&apos;ouverture.
         </p>

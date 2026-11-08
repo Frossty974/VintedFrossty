@@ -26,7 +26,7 @@ export function CoursePlayer({ slug }: { slug: string }) {
   if (!enrollments.some((e) => e.courseSlug === slug)) {
     return (
       <section className="container-x flex min-h-[70vh] flex-col items-center justify-center pt-24 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">Tu n&apos;es pas encore inscrit à cette formation</h1>
+        <h1 className="text-3xl font-bold">Tu n&apos;es pas encore inscrit à cette formation</h1>
         <p className="mt-3 max-w-md text-muted">{course.title}</p>
         <div className="mt-8 flex gap-3">
           <ButtonLink href={`/formations/${slug}/inscription`} arrow>S&apos;inscrire</ButtonLink>
@@ -54,7 +54,7 @@ export function CoursePlayer({ slug }: { slug: string }) {
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_340px]">
         <div className="min-w-0">
-          <div className="relative grid aspect-video place-items-center overflow-hidden rounded-3xl border border-line bg-[radial-gradient(ellipse_at_30%_20%,#18214a,#0a0c18_60%)]">
+          <div className="relative grid aspect-video place-items-center overflow-hidden rounded-lg border border-line bg-[radial-gradient(ellipse_at_30%_20%,#18214a,#0a0c18_60%)]">
             <div className="grid-bg absolute inset-0 opacity-60" />
             <div className="relative px-6 text-center">
               <Icon name="play" className="mx-auto size-10 text-white/40" />
@@ -62,7 +62,7 @@ export function CoursePlayer({ slug }: { slug: string }) {
             </div>
           </div>
           <p className="mt-6 font-mono text-xs uppercase tracking-wider text-faint">Module {lesson.mi + 1} · {lesson.module}</p>
-          <h1 className="mt-2 text-[clamp(1.6rem,3.4vw,2.3rem)] font-semibold tracking-[-0.03em]">{lesson.title}</h1>
+          <h1 className="mt-2 text-[clamp(1.6rem,3.4vw,2.3rem)] display">{lesson.title}</h1>
           {domain.riskNotice && <div className="mt-6"><RiskNotice compact text="Contenu pédagogique uniquement, pas de conseil en investissement. Risque de perte en capital." /></div>}
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <button type="button" onClick={complete} className={buttonClass(isDone ? "secondary" : "primary", "md")}>
@@ -75,10 +75,10 @@ export function CoursePlayer({ slug }: { slug: string }) {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="rounded-3xl border border-line bg-white/[0.02] p-5">
+          <div className="rounded-lg border border-line bg-white/[0.02] p-5">
             <p className="font-medium">{course.title}</p>
             <div className="mt-3 flex items-center gap-3">
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.06]"><div className="h-full rounded-full bg-[linear-gradient(90deg,#4c7dff,#8b6cff,#3fd0e8)] transition-all duration-700" style={{ width: `${pct}%` }} /></div>
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.06]"><div className="h-full rounded-full bg-lime transition-all duration-700" style={{ width: `${pct}%` }} /></div>
               <span className="font-mono text-xs text-muted">{pct} %</span>
             </div>
             <ol className="mt-5 grid max-h-[60vh] gap-4 overflow-y-auto pr-1">

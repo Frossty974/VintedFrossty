@@ -34,7 +34,7 @@ export default async function LegalPage({ params }: Props) {
       </nav>
       <article className="max-w-3xl">
         <DemoBadge>Modèle à compléter et à faire valider</DemoBadge>
-        <h1 className="mt-5 text-[clamp(2rem,4.6vw,3rem)] font-semibold leading-tight tracking-[-0.04em]">{doc.title}</h1>
+        <h1 className="mt-5 text-[clamp(2rem,4.6vw,3rem)] display">{doc.title}</h1>
         <p className="mt-4 text-lg leading-relaxed text-muted">{doc.intro}</p>
         <div className="prose-legal mt-4">
           {doc.sections.map((s) => (

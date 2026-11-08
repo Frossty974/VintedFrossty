@@ -37,7 +37,7 @@ export function CatalogExplorer({ initialDomain }: { initialDomain?: string }) {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4">
         <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0" role="tablist" aria-label="Filtrer par domaine">
           <div className="flex w-max gap-1 rounded-full border border-line bg-white/[0.02] p-1">
             {tabs.map((t) => (
@@ -68,7 +68,7 @@ export function CatalogExplorer({ initialDomain }: { initialDomain?: string }) {
           </label>
           <label className="relative block">
             <span className="sr-only">Niveau</span>
-            <select value={level} onChange={(e) => setLevel(e.target.value as typeof level)} className="h-10 w-full appearance-none rounded-full border border-line bg-[#0a0c16] pl-4 pr-10 text-sm text-fg focus:border-electric/60 focus:outline-none sm:w-auto">
+            <select value={level} onChange={(e) => setLevel(e.target.value as typeof level)} className="h-10 w-full appearance-none rounded-full border border-line bg-[#171717] pl-4 pr-10 text-sm text-fg focus:border-electric/60 focus:outline-none sm:w-auto">
               {levels.map((l) => (
                 <option key={l} value={l}>{l === "Tous" ? "Tous niveaux" : l}</option>
               ))}
@@ -90,9 +90,9 @@ export function CatalogExplorer({ initialDomain }: { initialDomain?: string }) {
         </AnimatePresence>
       </motion.div>
       {list.length === 0 && (
-        <div className="mt-10 rounded-3xl border border-dashed border-line-strong p-10 text-center text-muted">
+        <div className="mt-10 rounded-lg border border-dashed border-line-strong p-10 text-center text-muted">
           Aucune formation ne correspond à ces filtres.
-          <button className="ml-2 text-[#9db4ff] underline-offset-4 hover:underline" onClick={() => { setQuery(""); setLevel("Tous"); selectDomain("all"); }}>
+          <button className="ml-2 text-lime underline-offset-4 hover:underline" onClick={() => { setQuery(""); setLevel("Tous"); selectDomain("all"); }}>
             Réinitialiser
           </button>
         </div>

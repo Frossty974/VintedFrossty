@@ -25,14 +25,14 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="À propos"
-        title="On ne vend pas du rêve. On aide à choisir, puis à apprendre."
-        lead={`${site.name} est né d'un constat simple : les jeunes ne manquent ni d'ambition ni de motivation, mais de repères fiables pour décider où investir leur temps.`}
+        title="On vend pas du rêve."
+        lead="Tu manques pas de motivation. Tu manques de repères. On est là pour ça."
       />
 
       <div className="container-x grid gap-24">
         <Reveal>
           <section className="grid gap-10 lg:grid-cols-2">
-            <h2 className="text-[clamp(1.7rem,3.4vw,2.4rem)] font-semibold leading-tight tracking-[-0.035em]">Pourquoi nous existons</h2>
+            <h2 className="text-[clamp(1.7rem,3.4vw,2.4rem)] display">Pourquoi nous existons</h2>
             <div className="grid gap-5 text-lg leading-relaxed text-muted">
               <p>Internet regorge d&apos;opportunités : vendre en ligne, créer du contenu, utiliser l&apos;intelligence artificielle, comprendre la finance, proposer ses compétences. Mais il regorge aussi de promesses irréalistes et de conseils contradictoires.</p>
               <p>Résultat : beaucoup de jeunes hésitent, se dispersent, ou se lancent dans une voie qui ne leur correspond pas. Nous avons étudié chaque domaine — ses opportunités, ses difficultés, les compétences, le temps et les ressources qu&apos;il exige — pour proposer une vision honnête et une méthode pour avancer.</p>
@@ -42,11 +42,11 @@ export default function AboutPage() {
         </Reveal>
 
         <section>
-          <Reveal><h2 className="text-[clamp(1.7rem,3.4vw,2.4rem)] font-semibold tracking-[-0.035em]">Nos principes</h2></Reveal>
+          <Reveal><h2 className="text-[clamp(1.7rem,3.4vw,2.4rem)] display">Nos principes</h2></Reveal>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {values.map((v, i) => (
               <Reveal key={v.t} delay={(i % 2) * 0.06}>
-                <div className="h-full rounded-3xl border border-line bg-white/[0.02] p-7">
+                <div className="h-full rounded-lg border border-line bg-white/[0.02] p-7">
                   <Icon name={v.icon} className="size-6 text-cyan" />
                   <h3 className="mt-5 text-lg font-semibold">{v.t}</h3>
                   <p className="mt-2 leading-relaxed text-muted">{v.d}</p>
@@ -59,7 +59,7 @@ export default function AboutPage() {
         <Reveal>
           <section className="grid gap-10 lg:grid-cols-2">
             <div>
-              <h2 className="text-[clamp(1.7rem,3.4vw,2.4rem)] font-semibold tracking-[-0.035em]">Ce que nous refusons de faire</h2>
+              <h2 className="text-[clamp(1.7rem,3.4vw,2.4rem)] display">Ce que nous refusons de faire</h2>
               <p className="mt-4 leading-relaxed text-muted">Ces engagements s&apos;appliquent à notre site, nos formations et notre communication.</p>
             </div>
             <ul className="grid gap-3">
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 "Présenter le trading ou les crypto-actifs comme une source de revenu garanti.",
                 "Revendre ou exploiter commercialement les réponses au questionnaire.",
               ].map((x) => (
-                <li key={x} className="flex gap-3 rounded-2xl border border-line p-4 text-sm leading-relaxed">
+                <li key={x} className="flex gap-3 rounded-md border border-line p-4 text-sm leading-relaxed">
                   <Icon name="close" className="mt-0.5 size-4 shrink-0 text-risk" />{x}
                 </li>
               ))}
@@ -79,9 +79,9 @@ export default function AboutPage() {
         </Reveal>
 
         <Reveal>
-          <section className="rounded-[28px] border border-dashed border-line-strong p-8 sm:p-10">
+          <section className="rounded-lg border border-dashed border-line-strong p-8 sm:p-10">
             <div className="flex flex-wrap items-center gap-3">
-              <h2 className="text-xl font-semibold tracking-tight">L&apos;équipe</h2>
+              <h2 className="text-xl font-bold">L&apos;équipe</h2>
               <DemoBadge>Section à compléter</DemoBadge>
             </div>
             <p className="mt-4 max-w-2xl leading-relaxed text-muted">
@@ -91,7 +91,7 @@ export default function AboutPage() {
         </Reveal>
 
         <div className="flex flex-col items-center gap-4 text-center">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Envie de voir ce qui te correspond ?</h2>
+          <h2 className="text-2xl font-bold sm:text-3xl">Envie de voir ce qui te correspond ?</h2>
           <div className="flex flex-col gap-3 sm:flex-row">
             <FindPathButton />
             <ButtonLink href="/contact" variant="secondary">Nous écrire</ButtonLink>

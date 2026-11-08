@@ -56,19 +56,18 @@ export function OrientationProvider({ children }: { children: React.ReactNode })
       <AnimatePresence>
         {isOpen && (
           <motion.div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-            <div className="absolute inset-0 bg-[#03040a]/75 backdrop-blur-md" onClick={close} aria-hidden="true" />
+            <div className="absolute inset-0 bg-[#121212]/75 backdrop-blur-md" onClick={close} aria-hidden="true" />
             <motion.div
               ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-label="Questionnaire d'orientation"
-              className="ring-gradient relative h-[100dvh] w-full overflow-hidden bg-[linear-gradient(180deg,#0d1122,#080a14)] shadow-[0_40px_120px_-20px_rgb(0_0_0/0.8),0_0_80px_-20px_rgb(76_125_255/0.35)] sm:h-[min(720px,92dvh)] sm:max-w-2xl sm:rounded-[28px]"
+              className="ring-gradient relative h-[100dvh] w-full overflow-hidden bg-night sm:h-[min(720px,92dvh)] sm:max-w-2xl sm:rounded-lg"
               initial={{ y: 40, scale: 0.98, opacity: 0 }}
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 30, scale: 0.98, opacity: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(76_125_255/0.22),transparent)]" />
               <Quiz onClose={close} />
             </motion.div>
           </motion.div>

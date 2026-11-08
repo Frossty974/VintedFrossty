@@ -59,7 +59,6 @@ export default async function CoursePage({ params }: Props) {
       <section className="relative overflow-hidden pb-12 pt-28 sm:pt-36">
         <div className="pointer-events-none absolute inset-0">
           <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="absolute -top-40 right-0 h-[520px] w-[720px] rounded-full bg-[radial-gradient(closest-side,rgb(123_92_255/0.16),transparent)]" />
         </div>
         <div className="container-x relative">
           <nav aria-label="Fil d'Ariane" className="flex flex-wrap items-center gap-2 text-sm text-faint">
@@ -71,7 +70,7 @@ export default async function CoursePage({ params }: Props) {
             <p className={`mt-8 inline-flex items-center gap-2 text-sm font-medium ${accentText[domain.accent]}`}>
               <Icon name={domain.icon} className="size-4" /> {domain.name}
             </p>
-            <h1 className="mt-4 max-w-4xl text-[clamp(2.3rem,5.6vw,4.2rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-gradient text-balance">{course.title}</h1>
+            <h1 className="mt-4 max-w-4xl text-[clamp(2.3rem,5.6vw,4.2rem)] display text-gradient text-balance">{course.title}</h1>
             <p className="mt-5 max-w-2xl text-xl leading-relaxed text-muted">{course.subtitle}</p>
           </Reveal>
         </div>
@@ -79,7 +78,7 @@ export default async function CoursePage({ params }: Props) {
 
       <div className="container-x grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
         <div className="min-w-0">
-          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line sm:grid-cols-4">
             {facts.map((f) => (
               <div key={f.label} className="bg-ink p-4">
                 <dt className="flex items-center gap-1.5 text-xs text-faint"><Icon name={f.icon} className="size-3.5" />{f.label}</dt>
@@ -97,7 +96,7 @@ export default async function CoursePage({ params }: Props) {
           <Block title="Objectifs pédagogiques">
             <ul className="grid gap-3 sm:grid-cols-2">
               {course.objectives.map((o) => (
-                <li key={o} className="flex gap-3 rounded-2xl border border-line bg-white/[0.02] p-4 text-sm leading-relaxed">
+                <li key={o} className="flex gap-3 rounded-md border border-line bg-white/[0.02] p-4 text-sm leading-relaxed">
                   <Icon name="target" className="mt-0.5 size-4 shrink-0 text-cyan" />
                   {o}
                 </li>
@@ -119,11 +118,11 @@ export default async function CoursePage({ params }: Props) {
 
           <Block title="Avant de commencer">
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-line p-5">
+              <div className="rounded-md border border-line p-5">
                 <p className="text-sm font-medium">Niveau requis · {course.level}</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{course.prerequisites}</p>
               </div>
-              <div className="rounded-2xl border border-line p-5">
+              <div className="rounded-md border border-line p-5">
                 <p className="text-sm font-medium">Budget de départ indicatif · {formatBudget(course.startBudget.min, course.startBudget.max)}</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{course.startBudget.note} Ce budget s&apos;ajoute au prix de la formation et reste facultatif pour suivre les cours.</p>
               </div>
@@ -134,7 +133,7 @@ export default async function CoursePage({ params }: Props) {
             <ul className="grid gap-2.5">
               {course.resources.map((r) => (
                 <li key={r} className="flex items-center gap-3 text-muted">
-                  <Icon name="book" className="size-4 text-[#9db4ff]" /> {r}
+                  <Icon name="book" className="size-4 text-lime" /> {r}
                 </li>
               ))}
             </ul>
@@ -142,12 +141,12 @@ export default async function CoursePage({ params }: Props) {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="ring-gradient rounded-3xl bg-[linear-gradient(180deg,#0e1226,#090b16)] p-6 shadow-[0_30px_80px_-30px_rgb(76_125_255/0.4)]">
+          <div className="ring-gradient rounded-lg bg-night p-6">
             <div className="flex items-center justify-between">
               <Eyebrow>Formation</Eyebrow>
               <DemoBadge>Tarif indicatif</DemoBadge>
             </div>
-            <p className="mt-5 text-4xl font-semibold tracking-tight">{formatPrice(course.price)}</p>
+            <p className="mt-5 text-4xl font-bold">{formatPrice(course.price)}</p>
             <p className="mt-1 text-sm text-faint">TTC · paiement unique · accès sans limite de durée</p>
             <ButtonLink href={`/formations/${course.slug}/inscription`} size="lg" arrow className="mt-6 w-full">
               S&apos;inscrire
@@ -165,7 +164,7 @@ export default async function CoursePage({ params }: Props) {
       </div>
 
       {/* Barre d'inscription fixe sur mobile */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-[#05060b]/90 px-5 py-3 backdrop-blur-xl lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-[#121212]/90 px-5 py-3 backdrop-blur-xl lg:hidden">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-lg font-semibold leading-none">{formatPrice(course.price)}</p>
@@ -177,7 +176,7 @@ export default async function CoursePage({ params }: Props) {
 
       {related.length > 0 && (
         <section className="container-x mt-24">
-          <h2 className="text-2xl font-semibold tracking-tight">Dans le même domaine</h2>
+          <h2 className="text-2xl font-bold">Dans le même domaine</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((c) => <CourseCard key={c.slug} course={c} />)}
           </div>
@@ -192,7 +191,7 @@ function Block({ title, aside, children }: { title: string; aside?: string; chil
   return (
     <section className="mt-14">
       <div className="mb-6 flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-4">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h2>
+        <h2 className="text-2xl display">{title}</h2>
         {aside && <span className="font-mono text-xs text-faint">{aside}</span>}
       </div>
       {children}
