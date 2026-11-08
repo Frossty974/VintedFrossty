@@ -69,8 +69,8 @@ export function AuthForm({ initialMode }: { initialMode: Mode }) {
   const t = titles[mode];
 
   return (
-    <div className="ring-gradient w-full max-w-md rounded-[28px] bg-[linear-gradient(180deg,#0e1226,#090b16)] p-7 shadow-[0_40px_100px_-30px_rgb(76_125_255/0.4)] sm:p-9">
-      <h1 className="text-3xl font-semibold tracking-[-0.03em]">{t.h}</h1>
+    <div className="ring-gradient w-full max-w-md rounded-lg bg-night p-7 sm:p-9">
+      <h1 className="text-3xl display">{t.h}</h1>
       <p className="mt-2 text-muted">{t.p}</p>
 
       {backend.mode === "demo" && mode !== "reset" && (
@@ -98,7 +98,7 @@ export function AuthForm({ initialMode }: { initialMode: Mode }) {
           </div>
         )}
         {mode === "signin" && (
-          <button type="button" onClick={() => { setMode("reset"); setErrors({}); setMessage(null); }} className="-mt-2 justify-self-end text-sm text-[#9db4ff] hover:text-fg">
+          <button type="button" onClick={() => { setMode("reset"); setErrors({}); setMessage(null); }} className="-mt-2 justify-self-end text-sm text-lime hover:text-fg">
             Mot de passe oublié ?
           </button>
         )}

@@ -60,17 +60,16 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
       <section className="relative overflow-hidden pb-12 pt-28 sm:pt-36">
         <div className="pointer-events-none absolute inset-0">
           <div className="grid-bg absolute inset-0 opacity-60" />
-          <div className="absolute -top-48 left-1/2 h-[520px] w-[1000px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(76_125_255/0.2),transparent)]" />
         </div>
         <div className="container-x relative">
           <Reveal>
             <Eyebrow>Tes résultats</Eyebrow>
-            <h1 className="mt-5 max-w-4xl text-[clamp(2.2rem,5.4vw,4rem)] font-semibold leading-[1.02] tracking-[-0.045em] text-gradient text-balance">
+            <h1 className="mt-5 max-w-4xl text-[clamp(2.2rem,5.4vw,4rem)] display text-gradient text-balance">
               Nous avons identifié les domaines qui pourraient te correspondre.
             </h1>
             <p className="mt-6 max-w-2xl text-muted">
               Les pourcentages représentent un <strong className="font-medium text-fg">score de compatibilité</strong> entre ton profil et les exigences de chaque domaine. Ils ne mesurent pas tes chances de réussite.{" "}
-              <Link href="/methode" className="text-[#9db4ff] underline-offset-4 hover:underline">Comment c&apos;est calculé</Link>
+              <Link href="/methode" className="text-lime underline-offset-4 hover:underline">Comment c&apos;est calculé</Link>
             </p>
           </Reveal>
         </div>
@@ -79,10 +78,10 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
       <div className="container-x">
         {/* Profil */}
         <Reveal immediate delay={0.1}>
-          <div className="ring-gradient grid gap-8 rounded-[28px] bg-[linear-gradient(180deg,#0e1226,#090b16)] p-6 sm:p-8 lg:grid-cols-[1.1fr_1fr_1fr]">
+          <div className="ring-gradient grid gap-8 rounded-lg bg-night p-6 sm:p-8 lg:grid-cols-[1.1fr_1fr_1fr]">
             <div>
               <p className="eyebrow">Ton profil</p>
-              <p className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
+              <p className="mt-3 text-3xl display">
                 <span className="text-accent">{profile.archetype}</span>
               </p>
               <p className="mt-3 leading-relaxed text-muted">{profile.summary}</p>
@@ -104,7 +103,7 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
                 {profile.constraints.length ? profile.constraints.map((s) => <li key={s} className="flex gap-2.5 text-sm leading-relaxed text-fg/85"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-warn" />{s}</li>) : <li className="text-sm text-muted">Aucune contrainte forte identifiée.</li>}
               </ul>
             </div>
-            <div className="rounded-2xl border border-line bg-white/[0.02] p-5 lg:col-span-3">
+            <div className="rounded-md border border-line bg-white/[0.02] p-5 lg:col-span-3">
               <p className="text-sm font-medium">Notre conseil face à ta difficulté : « {optionLabel("difficulty", answers.difficulty).toLowerCase()} »</p>
               <p className="mt-2 text-sm leading-relaxed text-muted">{profile.advice}</p>
             </div>
@@ -112,15 +111,15 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
         </Reveal>
 
         {/* Top 3 */}
-        <h2 className="mt-20 text-[clamp(1.7rem,3.4vw,2.4rem)] font-semibold tracking-[-0.035em]">Les trois domaines les plus adaptés</h2>
+        <h2 className="mt-20 text-[clamp(1.7rem,3.4vw,2.4rem)] display">Les trois domaines les plus adaptés</h2>
         <div className="mt-8 grid gap-5">
           {top.map((t, i) => <TrackCard key={t.track.id} result={t} rank={i + 1} delay={i * 0.12} />)}
         </div>
 
         {/* Autres */}
         <Reveal>
-          <div className="mt-12 rounded-3xl border border-line p-6 sm:p-8">
-            <h2 className="text-lg font-semibold tracking-tight">Les autres domaines analysés</h2>
+          <div className="mt-12 rounded-lg border border-line p-6 sm:p-8">
+            <h2 className="text-lg font-bold">Les autres domaines analysés</h2>
             <ul className="mt-6 grid gap-5">
               {others.map((o) => (
                 <li key={o.track.id}>
@@ -157,7 +156,7 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
           </div>
           {ready && (
             <p className="text-sm text-faint">
-              {user ? (saved === "error" ? "Impossible d'enregistrer dans ton espace pour le moment." : <>Résultat enregistré dans <Link href="/espace" className="text-[#9db4ff] hover:underline">ton espace</Link>.</>) : <>Résultat conservé sur cet appareil. <Link href="/inscription" className="text-[#9db4ff] hover:underline">Crée un compte</Link> pour le retrouver partout.</>}
+              {user ? (saved === "error" ? "Impossible d'enregistrer dans ton espace pour le moment." : <>Résultat enregistré dans <Link href="/espace" className="text-lime hover:underline">ton espace</Link>.</>) : <>Résultat conservé sur cet appareil. <Link href="/inscription" className="text-lime hover:underline">Crée un compte</Link> pour le retrouver partout.</>}
             </p>
           )}
         </div>
@@ -169,7 +168,7 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <Eyebrow>Parcours recommandé</Eyebrow>
-                  <h2 className="mt-4 text-[clamp(1.7rem,3.4vw,2.4rem)] font-semibold tracking-[-0.035em]">{top[0].track.name}</h2>
+                  <h2 className="mt-4 text-[clamp(1.7rem,3.4vw,2.4rem)] display">{top[0].track.name}</h2>
                 </div>
                 <p className="text-sm text-muted">Environ <strong className="text-fg">{totalWeeks} semaines</strong> jusqu&apos;au premier projet, à {profile.weeklyHours} h par semaine.</p>
               </div>
@@ -177,10 +176,10 @@ export function ResultsView({ code, answers, result }: { code: string; answers: 
                 <span className="absolute bottom-8 left-[27px] top-8 w-px bg-gradient-to-b from-electric/60 via-violet/40 to-cyan/30" aria-hidden="true" />
                 {path.map((p, i) => (
                   <motion.li key={p.title} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 + i * 0.1, duration: 0.5 }} className="relative flex gap-5">
-                    <span className="relative z-10 grid size-14 shrink-0 place-items-center rounded-2xl border border-line-strong bg-night font-mono text-sm text-[#9db4ff]">{i + 1}</span>
-                    <div className="flex-1 rounded-2xl border border-line bg-white/[0.02] p-5">
+                    <span className="relative z-10 grid size-14 shrink-0 place-items-center rounded-md border border-line-strong bg-night font-mono text-sm text-lime">{i + 1}</span>
+                    <div className="flex-1 rounded-md border border-line bg-white/[0.02] p-5">
                       <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <h3 className="font-semibold tracking-tight">{p.title}</h3>
+                        <h3 className="font-bold">{p.title}</h3>
                         <span className="font-mono text-xs text-faint">{i === 4 ? "En continu" : `≈ ${p.weeks} semaine${p.weeks > 1 ? "s" : ""}`}</span>
                       </div>
                       <p className="mt-1.5 text-sm text-muted">{p.description}</p>
@@ -211,11 +210,11 @@ function Tag({ children }: { children: React.ReactNode }) {
 }
 
 const warnStyle: Record<Warning["kind"], string> = {
-  risk: "border-risk/25 bg-risk/[0.06] text-[#f3c2c2]",
-  age: "border-risk/25 bg-risk/[0.06] text-[#f3c2c2]",
-  budget: "border-warn/25 bg-warn/[0.06] text-[#ecd9b6]",
-  time: "border-warn/20 bg-warn/[0.04] text-[#ecd9b6]",
-  horizon: "border-warn/20 bg-warn/[0.04] text-[#ecd9b6]",
+  risk: "border-risk/25 bg-risk/[0.06] text-red",
+  age: "border-risk/25 bg-risk/[0.06] text-red",
+  budget: "border-warn/25 bg-warn/[0.06] text-fg/85",
+  time: "border-warn/20 bg-warn/[0.04] text-fg/85",
+  horizon: "border-warn/20 bg-warn/[0.04] text-fg/85",
 };
 
 function TrackCard({ result, rank, delay }: { result: TrackResult; rank: number; delay: number }) {
@@ -223,7 +222,7 @@ function TrackCard({ result, rank, delay }: { result: TrackResult; rank: number;
   const domain = getDomain(t.domain)!;
   return (
     <Reveal delay={0.2 + delay} immediate>
-      <article className={`overflow-hidden rounded-[28px] border ${rank === 1 ? "ring-gradient border-transparent bg-[linear-gradient(180deg,#0f1428,#090b16)]" : "border-line bg-white/[0.015]"}`}>
+      <article className={`overflow-hidden rounded-lg border ${rank === 1 ? "ring-gradient border-transparent bg-night" : "border-line bg-white/[0.015]"}`}>
         <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[auto_1fr_1fr]">
           <div className="flex items-center gap-5 lg:flex-col lg:items-start">
             <ScoreRing score={score} size={rank === 1 ? 128 : 108} delay={delay} />
@@ -233,7 +232,7 @@ function TrackCard({ result, rank, delay }: { result: TrackResult; rank: number;
             </div>
           </div>
           <div>
-            <h3 className="text-2xl font-semibold tracking-[-0.03em]">{t.name}</h3>
+            <h3 className="text-2xl display">{t.name}</h3>
             <p className="mt-2 text-muted">{t.pitch}</p>
             <p className="mt-6 text-sm font-medium">Pourquoi ça te correspond</p>
             <ul className="mt-3 grid gap-2.5">
@@ -243,17 +242,17 @@ function TrackCard({ result, rank, delay }: { result: TrackResult; rank: number;
             <div className="mt-3 flex flex-wrap gap-2">{t.skills.map((s) => <span key={s} className="rounded-full border border-line-strong px-3 py-1 text-xs">{s}</span>)}</div>
           </div>
           <div className="grid content-start gap-4">
-            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line text-sm">
-              <div className="bg-[#0a0c17] p-4"><dt className="text-xs text-faint">Pour débuter</dt><dd className="mt-1">{t.startTime}</dd></div>
-              <div className="bg-[#0a0c17] p-4"><dt className="text-xs text-faint">Budget indicatif</dt><dd className="mt-1">{formatBudget(t.minBudget, t.comfortBudget)}</dd></div>
-              <div className="col-span-2 bg-[#0a0c17] p-4"><dt className="text-xs text-faint">Premiers résultats</dt><dd className="mt-1">{t.firstResultLabel}</dd></div>
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line text-sm">
+              <div className="bg-[#171717] p-4"><dt className="text-xs text-faint">Pour débuter</dt><dd className="mt-1">{t.startTime}</dd></div>
+              <div className="bg-[#171717] p-4"><dt className="text-xs text-faint">Budget indicatif</dt><dd className="mt-1">{formatBudget(t.minBudget, t.comfortBudget)}</dd></div>
+              <div className="col-span-2 bg-[#171717] p-4"><dt className="text-xs text-faint">Premiers résultats</dt><dd className="mt-1">{t.firstResultLabel}</dd></div>
             </dl>
             <div>
               <p className="text-xs text-faint">Difficultés potentielles</p>
               <ul className="mt-2 grid gap-1.5">{t.challenges.map((c) => <li key={c} className="flex gap-2 text-sm text-muted"><span className="mt-2 size-1 shrink-0 rounded-full bg-faint" />{c}</li>)}</ul>
             </div>
             {warnings.map((w) => (
-              <p key={w.kind} role="note" className={`flex gap-2 rounded-xl border p-3 text-xs leading-relaxed ${warnStyle[w.kind]}`}>
+              <p key={w.kind} role="note" className={`flex gap-2 rounded-md border p-3 text-xs leading-relaxed ${warnStyle[w.kind]}`}>
                 <Icon name="alert" className="mt-px size-3.5 shrink-0" />{w.text}
               </p>
             ))}

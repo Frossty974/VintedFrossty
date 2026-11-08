@@ -1,10 +1,10 @@
-// Informations de marque centralisées. Le nom "Kairos" est provisoire : le changer ici suffit.
+// Informations de marque centralisées.
 export const site = {
-  name: "Kairos",
+  name: "NO LARP",
   legalName: "[Raison sociale à compléter]",
-  tagline: "Trouve ce qui te correspond. Apprends ce qui compte.",
+  tagline: "Pas de cinéma. Du concret.",
   description:
-    "Kairos aide les 16-30 ans à découvrir les domaines qui leur correspondent — e-commerce, IA, création de contenu, finance, business digital — et à se former avec des programmes concrets, sans promesse d'argent facile.",
+    "L'écosystème de formations en ligne pour entreprendre sur internet, sans cinéma. Trouve ton modèle, teste-le, construis — e-commerce, IA, contenu, finance, business digital.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "contact@exemple.fr",
   locale: "fr_FR",
@@ -12,8 +12,9 @@ export const site = {
 
 export const nav = [
   { href: "/formations", label: "Formations" },
+  { href: "/classement", label: "Classement" },
   { href: "/domaines", label: "Domaines" },
+  { href: "/proposer", label: "Proposer" },
   { href: "/methode", label: "Méthode" },
-  { href: "/a-propos", label: "À propos" },
   { href: "/faq", label: "FAQ" },
 ];

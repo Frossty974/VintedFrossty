@@ -46,3 +46,56 @@ export function toFieldErrors(err: z.ZodError): FieldErrors {
   }
   return out;
 }
+
+// ---------- Soumission d'une formation par la communauté ----------
+
+const line = (min: number, max: number, label: string) =>
+  z.string().trim().min(min, `${label} : ${min} caractères minimum.`).max(max, `${label} : ${max} caractères maximum.`);
+
+export const courseSubmissionSchema = z.object({
+  title: line(6, 90, "Titre"),
+  subtitle: line(10, 140, "Sous-titre"),
+  domain: z.enum(["e-commerce", "trading", "ia-contenu", "business-digital"], { error: "Choisis un domaine." }),
+  level: z.enum(["Débutant", "Intermédiaire", "Avancé"], { error: "Choisis un niveau." }),
+  price: z.number({ error: "Indique un prix." }).min(0, "Prix invalide.").max(2000, "2 000 € maximum."),
+  presentation: line(80, 2000, "Présentation"),
+  objectives: z.array(line(5, 160, "Objectif")).min(2, "Au moins 2 objectifs.").max(8, "8 objectifs maximum."),
+  skills: z.array(line(2, 40, "Compétence")).min(2, "Au moins 2 compétences.").max(10, "10 compétences maximum."),
+  prerequisites: line(3, 300, "Prérequis"),
+  startBudget: z
+    .object({ min: z.number().min(0).max(100000), max: z.number().min(0).max(100000), note: z.string().trim().max(200) })
+    .refine((b) => b.max >= b.min, { message: "Le budget maximum doit être supérieur au minimum." }),
+  modules: z
+    .array(
+      z.object({
+        title: line(3, 90, "Titre de module"),
+        hours: z.number({ error: "Durée invalide." }).min(0.25, "Durée minimum : 0,25 h.").max(40, "40 h maximum par module."),
+        lessons: z.array(line(3, 120, "Leçon")).min(1, "Au moins 1 leçon par module.").max(15, "15 leçons maximum."),
+      }),
+    )
+    .min(2, "Au moins 2 modules.")
+    .max(15, "15 modules maximum."),
+  resources: z.array(line(3, 120, "Ressource")).max(10),
+});
+
+export const submissionCommitmentsSchema = z.object({
+  original: z.literal(true, { error: "Engagement requis." }),
+  noPromise: z.literal(true, { error: "Engagement requis." }),
+  accuracy: z.literal(true, { error: "Engagement requis." }),
+});
+
+export const trackSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]{3,80}$/),
+  type: z.enum(["view", "enroll", "lesson"]),
+  visitor: z.string().regex(/^[a-z0-9-]{8,64}$/),
+});
+
+/** Erreurs indexées par chemin complet (ex. "modules.1.lessons.0"), pour les formulaires imbriqués. */
+export function toPathErrors(err: z.ZodError): FieldErrors {
+  const out: FieldErrors = {};
+  for (const issue of err.issues) {
+    const k = issue.path.join(".") || "form";
+    if (!out[k]) out[k] = issue.message;
+  }
+  return out;
+}

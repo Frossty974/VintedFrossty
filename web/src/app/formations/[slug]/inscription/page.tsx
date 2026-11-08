@@ -25,10 +25,10 @@ export default async function EnrollPage({ params }: Props) {
   return (
     <section className="container-x pb-10 pt-28 sm:pt-36">
       <Link href={`/formations/${course.slug}`} className="inline-flex items-center gap-2 text-sm text-muted hover:text-fg"><Icon name="arrow-left" className="size-4" />Retour au programme</Link>
-      <h1 className="mt-6 text-[clamp(2rem,4.6vw,3.2rem)] font-semibold leading-tight tracking-[-0.04em]">S&apos;inscrire à « {course.title} »</h1>
+      <h1 className="mt-6 text-[clamp(2rem,4.6vw,3.2rem)] display">S&apos;inscrire à « {course.title} »</h1>
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.15fr]">
         <div>
-          <div className="rounded-3xl border border-line p-6">
+          <div className="rounded-lg border border-line p-6">
             <p className="text-sm text-faint">{domain.name}</p>
             <p className="mt-1 text-lg font-medium">{course.title}</p>
             <ul className="mt-5 grid gap-3 text-sm text-muted">

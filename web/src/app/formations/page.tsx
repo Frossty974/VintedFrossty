@@ -17,8 +17,8 @@ export default async function FormationsPage({ searchParams }: { searchParams: P
     <>
       <PageHero
         eyebrow="Catalogue"
-        title="Des formations pour apprendre ce qui compte vraiment."
-        lead={`${courses.length} formations réparties en ${domains.length} domaines. Chaque programme est public : objectifs, compétences, durée, budget de départ et contenu de chaque module.`}
+        title="Les formations."
+        lead={`${courses.length} formations. ${domains.length} domaines. Programmes 100 % publics.`}
       >
         <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-muted">
           <FindPathButton variant="secondary">Pas sûr ? Trouve ta voie</FindPathButton>

@@ -21,7 +21,7 @@ export default function DomainesPage() {
     { label: "Temps conseillé", get: (d) => d.weeklyTime },
     { label: "Budget de départ", get: (d) => formatBudget(d.startBudget.min, d.startBudget.max) },
     { label: "Pour démarrer", get: (d) => d.timeToStart },
-    { label: "Risque financier", get: (d) => (d.riskNotice ? <span className="text-[#ffb3b3]">Élevé (perte en capital)</span> : "Faible à modéré") },
+    { label: "Risque financier", get: (d) => (d.riskNotice ? <span className="text-red">Élevé (perte en capital)</span> : "Faible à modéré") },
     { label: "Formations", get: (d) => getCoursesByDomain(d.slug).length },
   ];
 
@@ -29,8 +29,8 @@ export default function DomainesPage() {
     <>
       <PageHero
         eyebrow="Domaines"
-        title="Chaque domaine, tel qu'il est vraiment."
-        lead="Nous avons analysé chaque domaine : ses opportunités, ses difficultés, les compétences nécessaires, le temps à investir et le budget pour débuter. Compare-les, puis laisse le questionnaire affiner."
+        title="4 domaines. Sans filtre."
+        lead="Ce que ça permet. Ce que ça coûte. Ce que personne te dit."
       >
         <div className="mt-8"><FindPathButton variant="secondary">Comparer avec mon profil</FindPathButton></div>
       </PageHero>
@@ -45,7 +45,7 @@ export default function DomainesPage() {
                     <Icon name={d.icon} className="size-6" />
                     <span className="text-sm font-medium">{d.short}</span>
                   </div>
-                  <h2 className="mt-6 text-2xl font-semibold tracking-[-0.03em]">{d.name}</h2>
+                  <h2 className="mt-6 text-2xl display">{d.name}</h2>
                   <p className="mt-3 flex-1 leading-relaxed text-muted">{d.description}</p>
                   <span className="mt-6 inline-flex items-center gap-1.5 text-sm text-muted group-hover/spot:text-fg">Voir l&apos;analyse complète <Icon name="arrow-right" className="size-4" /></span>
                 </Link>
@@ -55,9 +55,9 @@ export default function DomainesPage() {
         </div>
 
         <Reveal>
-          <h2 className="mt-24 text-[clamp(1.8rem,3.6vw,2.6rem)] font-semibold tracking-[-0.035em]">Comparatif rapide</h2>
+          <h2 className="mt-24 text-[clamp(1.8rem,3.6vw,2.6rem)] display">Comparatif rapide</h2>
           <p className="mt-3 text-muted">Ordres de grandeur indicatifs, établis par notre équipe pédagogique. Ils varient selon les projets.</p>
-          <div className="mt-8 overflow-x-auto rounded-3xl border border-line">
+          <div className="mt-8 overflow-x-auto rounded-lg border border-line">
             <table className="w-full min-w-[760px] text-left text-sm">
               <thead>
                 <tr className="border-b border-line bg-white/[0.02]">

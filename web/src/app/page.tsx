@@ -1,158 +1,151 @@
 import Link from "next/link";
 import { CourseCard } from "@/components/catalog/CourseCard";
-import { HeroVisual } from "@/components/home/HeroVisual";
+import { Burst, HandArrow, HandCheck } from "@/components/home/Sticker";
 import { FindPathButton } from "@/components/orientation/FindPathButton";
 import { Accordion } from "@/components/ui/Accordion";
 import { Icon } from "@/components/ui/Icon";
-import { accentSoft, accentText, ButtonLink, Eyebrow, formatBudget, SectionHeading } from "@/components/ui/primitives";
+import { LogoMark } from "@/components/ui/Logo";
+import { ButtonLink, Eyebrow, formatBudget } from "@/components/ui/primitives";
 import { Reveal } from "@/components/ui/Reveal";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { getCoursesByDomain, popularCourses } from "@/data/courses";
+import { popularCourses } from "@/data/courses";
 import { domains } from "@/data/domains";
 import { faq } from "@/data/faq";
-import type { IconName } from "@/data/types";
+import { RankingBoard } from "@/components/community/RankingBoard";
+import { CertifiedBadge } from "@/components/community/CertifiedBadge";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Problem />
-      <Solution />
+      <FindYourModel />
+      <Lambo />
       <Domains />
-      <Method />
-      <QuizCta />
       <Popular />
-      <Commitments />
+      <WeeklyTop />
+      <Propose />
+      <Rules />
       <FaqSection />
-      <FinalCta />
     </>
   );
 }
 
+const promises = ["Anti-guru", "Anti-fake hustle", "Formations accessibles", "Programmes publics", "Progrès réels"];
+
 function Hero() {
   return (
-    <section className="noise relative overflow-hidden pt-28 sm:pt-32 lg:pt-36">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="grid-bg absolute inset-0" />
-        <div className="absolute -left-40 -top-40 h-[560px] w-[560px] rounded-full bg-[radial-gradient(closest-side,rgb(76_125_255/0.22),transparent)]" />
-        <div className="absolute -right-40 top-20 h-[620px] w-[620px] rounded-full bg-[radial-gradient(closest-side,rgb(139_108_255/0.16),transparent)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink" />
-      </div>
-      <div className="container-x relative grid items-center gap-10 pb-20 lg:grid-cols-[1.15fr_1fr] lg:gap-4 lg:pb-28">
+    <section className="relative overflow-hidden pb-16 pt-24 sm:pt-28">
+      <div className="container-x grid items-start gap-10 lg:grid-cols-[1.35fr_1fr]">
         <div>
           <Reveal>
-            <span className="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs text-muted">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan opacity-60" />
-                <span className="relative inline-flex size-2 rounded-full bg-cyan" />
-              </span>
-              Plateforme d&apos;orientation et de formation · 16 – 30 ans
-            </span>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <LogoMark className="size-16 shrink-0 sm:size-28" />
+              <h1 className="display whitespace-nowrap text-[clamp(4.2rem,13vw,9.6rem)] leading-[0.85]">
+                <span className="sr-only">NO LARP — </span>
+                <span aria-hidden="true">No Larp</span>
+              </h1>
+            </div>
+            <div className="ml-20 mt-1 h-2 w-3/4 -rotate-1 bg-lime sm:ml-36" aria-hidden="true" />
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="mt-7 text-[clamp(2.45rem,5.6vw,4.4rem)] font-semibold leading-[0.98] tracking-[-0.045em] text-balance">
-              <span className="text-gradient">Tu ne sais pas encore quoi faire de ta vie ?</span>{" "}
-              <span className="text-accent">C&apos;est justement pour ça qu&apos;on existe.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mt-7 max-w-xl text-[1.12rem] leading-relaxed text-muted text-pretty">
-              E-commerce, intelligence artificielle, création de contenu, finance… Découvre les opportunités du monde actuel et trouve le domaine qui correspond réellement à tes ambitions.
+            <p className="mt-8 max-w-xl text-xl font-semibold leading-snug sm:text-2xl">
+              Les formations en ligne pour entreprendre sur internet, <span className="hl">sans cinéma</span>, avec du concret.
             </p>
           </Reveal>
-          <Reveal delay={0.24}>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <Reveal delay={0.14}>
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <FindPathButton size="lg" />
-              <ButtonLink href="/formations" variant="secondary" size="lg">
-                Découvrir les formations
-              </ButtonLink>
+              <ButtonLink href="/formations" variant="secondary" size="lg">Voir les formations</ButtonLink>
             </div>
           </Reveal>
-          <Reveal delay={0.32}>
-            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-faint">
-              {["Orientation gratuite, sans inscription", "Programmes publics et détaillés", "Aucune promesse de revenus"].map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <Icon name="check" className="size-4 text-cyan" />
-                  {t}
+          <Reveal delay={0.2}>
+            <ul className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3 text-fg">
+              {[
+                { i: "book" as const, t: "No Larp School" },
+                { i: "layers" as const, t: "Programmes publics" },
+                { i: "check" as const, t: "Faire avant de paraître" },
+              ].map((x, idx) => (
+                <li key={x.t} className="flex items-center gap-2">
+                  {idx > 0 && <span className="mr-3 hidden h-8 w-0.5 rotate-12 bg-lime sm:block" aria-hidden="true" />}
+                  <Icon name={x.i} className="size-6" strokeWidth={1.8} />
+                  <span className="display text-lg leading-none">{x.t}</span>
                 </li>
               ))}
             </ul>
           </Reveal>
         </div>
-        <Reveal delay={0.2} y={10}>
-          <HeroVisual />
+
+        <Reveal delay={0.12} className="relative lg:mt-6">
+          <div className="paper torn relative rotate-[1.5deg] px-7 pb-10 pt-9 sm:px-10">
+            <Burst className="absolute right-8 top-6 size-10 text-red" />
+            <p className="display text-[clamp(3rem,5.4vw,4.6rem)] text-[#171717]">Pas de cinéma.</p>
+            <p className="display mt-1 inline-block -rotate-1 bg-lime whitespace-nowrap px-3 py-1 text-[clamp(3rem,5.4vw,4.6rem)] text-[#171717]">Du concret.</p>
+          </div>
+          <ul className="mt-10 grid gap-3 pl-2">
+            {promises.map((p, i) => (
+              <li key={p} className="hand flex items-center gap-3 text-2xl text-fg" style={{ transform: `rotate(${i % 2 ? 0.8 : -1}deg)` }}>
+                <HandCheck className="size-7 shrink-0 text-lime" />
+                {p}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </div>
     </section>
   );
 }
 
-const problems: { icon: IconName; title: string; text: string }[] = [
-  { icon: "layers", title: "Trop d'informations", text: "Vidéos, conseils, « méthodes » : tout se contredit, et il est impossible de savoir qui croire." },
-  { icon: "eye", title: "Des promesses irréalistes", text: "On te montre des résultats spectaculaires sans jamais parler du temps, du travail ni des risques." },
-  { icon: "route", title: "Aucune direction claire", text: "Personne ne t'aide à relier tes envies, tes moyens et ton temps à un domaine concret." },
-  { icon: "alert", title: "La peur de se tromper", text: "Perdre du temps ou de l'argent sur la mauvaise voie bloque souvent avant même de commencer." },
-];
-
-function Problem() {
+function FindYourModel() {
   return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="probleme">
+    <section className="relative py-12 sm:py-20" aria-labelledby="modele">
+      <div className="container-x grid items-stretch gap-6 lg:grid-cols-[1.1fr_1fr]">
+        <Reveal>
+          <div className="lime-block torn relative h-full -rotate-[0.8deg] px-7 py-12 sm:px-12 sm:py-16">
+            <h2 id="modele" className="display text-[clamp(3.4rem,8vw,6.4rem)] text-[#171717]">
+              Trouve ton modèle.<br />Teste.<br /><span className="scribble">Construis.</span>
+            </h2>
+            <HandArrow className="absolute bottom-10 right-8 hidden w-28 text-[#171717] sm:block" />
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div className="flex h-full flex-col justify-between gap-8 rounded-lg border-2 border-line-strong bg-night p-7 sm:p-10">
+            <div>
+              <Eyebrow>Questionnaire gratuit · 2 min</Eyebrow>
+              <p className="display mt-5 text-4xl sm:text-5xl">10 questions.<br />3 domaines faits pour toi.</p>
+              <p className="mt-4 max-w-sm text-muted">Ton temps, ton budget, ton niveau. On compare, tu choisis.</p>
+            </div>
+            <div className="rounded-md border border-line bg-ink p-5" aria-hidden="true">
+              <p className="text-sm text-faint">Question 4 / 10</p>
+              <p className="mt-1 font-semibold">Quel budget peux-tu investir pour commencer ?</p>
+              <div className="mt-4 flex flex-wrap gap-2 text-sm">
+                {["0 €", "50 à 100 €", "100 à 300 €"].map((o, i) => (
+                  <span key={o} className={`rounded-md border px-3 py-1.5 ${i === 1 ? "border-lime bg-lime text-[#121212]" : "border-line-strong text-muted"}`}>{o}</span>
+                ))}
+              </div>
+            </div>
+            <FindPathButton size="lg" className="self-start">Trouver ma voie</FindPathButton>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Lambo() {
+  return (
+    <section className="relative py-20 sm:py-28">
       <div className="container-x">
         <Reveal>
-          <SectionHeading
-            eyebrow="Le constat"
-            title={<span id="probleme">Ce n&apos;est pas la motivation qui manque. C&apos;est la direction.</span>}
-            lead="Beaucoup de jeunes veulent réussir, devenir indépendants, construire quelque chose. Mais entre le bruit d'Internet et la peur de mal choisir, il est difficile de savoir par où commencer."
-          />
+          <p className="display max-w-5xl text-[clamp(3.6rem,11vw,9rem)]">
+            Ton business n&apos;a pas besoin d&apos;une <span className="text-lime">Lambo.</span>
+          </p>
         </Reveal>
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {problems.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.06}>
-              <div className="h-full rounded-3xl border border-line bg-white/[0.02] p-6">
-                <Icon name={p.icon} className="size-6 text-[#9db4ff]" />
-                <h3 className="mt-6 text-lg font-semibold tracking-tight">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{p.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const pillars = [
-  { n: "01", title: "Explorer", text: "Découvrir les domaines qui recrutent, se développent ou permettent d'entreprendre aujourd'hui." },
-  { n: "02", title: "Comprendre", text: "Voir chaque domaine tel qu'il est : opportunités, difficultés, compétences, temps et budget nécessaires." },
-  { n: "03", title: "Choisir", text: "Comparer ton profil aux exigences réelles de chaque domaine grâce à un questionnaire précis." },
-  { n: "04", title: "Apprendre", text: "Suivre un parcours structuré, du premier module au premier projet concret." },
-];
-
-function Solution() {
-  return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="solution">
-      <div className="pointer-events-none absolute inset-x-0 top-1/2 h-[500px] -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgb(76_125_255/0.08),transparent_65%)]" />
-      <div className="container-x relative">
-        <Reveal>
-          <SectionHeading
-            align="center"
-            eyebrow="Notre solution"
-            title={<span id="solution">Tu n&apos;as pas besoin de savoir ce que tu veux faire de ta vie.</span>}
-            lead="Tu as besoin de découvrir ce qui te correspond. Nous avons étudié chaque domaine pour te donner une vision honnête, puis une méthode pour avancer."
-          />
+        <Reveal delay={0.1}>
+          <div className="lime-block torn mt-6 inline-block -rotate-1 px-6 py-4 sm:px-10">
+            <p className="text-[clamp(1.6rem,4vw,2.8rem)] font-extrabold italic text-[#171717]">
+              Il a besoin de <span className="scribble">3 vrais clients.</span>
+            </p>
+          </div>
         </Reveal>
-        <div className="relative mt-16">
-          <div className="absolute left-0 right-0 top-[27px] hidden h-px bg-gradient-to-r from-transparent via-line-strong to-transparent lg:block" />
-          <ol className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {pillars.map((p, i) => (
-              <Reveal as="li" key={p.n} delay={i * 0.08} className="relative">
-                <div className="relative z-10 grid size-14 place-items-center rounded-2xl border border-line-strong bg-night font-mono text-sm text-[#9db4ff] shadow-[0_0_30px_-8px_rgb(76_125_255/0.5)]">{p.n}</div>
-                <h3 className="mt-6 text-2xl font-semibold tracking-[-0.03em]">{p.title}</h3>
-                <p className="mt-3 leading-relaxed text-muted">{p.text}</p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
       </div>
     </section>
   );
@@ -160,161 +153,28 @@ function Solution() {
 
 function Domains() {
   return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="domaines">
+    <section className="relative py-20" aria-labelledby="domaines">
       <div className="container-x">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Les domaines"
-              title={<span id="domaines">Quatre univers, analysés sans filtre.</span>}
-              lead="Pour chacun : ce qu'il permet, ce qu'il exige, et ce que personne ne te dit."
-            />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ButtonLink href="/domaines" variant="secondary" arrow>
-              Comparer les domaines
-            </ButtonLink>
-          </Reveal>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <h2 id="domaines" className="display text-[clamp(3rem,8vw,6rem)]">4 terrains de jeu.</h2>
+          <ButtonLink href="/domaines" variant="secondary" arrow>Comparer</ButtonLink>
         </div>
-        <div className="mt-14 grid gap-4 md:grid-cols-2">
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {domains.map((d, i) => (
-            <Reveal key={d.slug} delay={(i % 2) * 0.08}>
-              <SpotlightCard glow={accentSoft[d.accent]} className="h-full">
-                <Link href={`/domaines/${d.slug}`} className="flex h-full flex-col p-7 sm:p-8">
-                  <div className="flex items-start justify-between">
-                    <div className={`grid size-12 place-items-center rounded-2xl border border-line-strong bg-white/[0.03] ${accentText[d.accent]}`}>
-                      <Icon name={d.icon} className="size-6" />
-                    </div>
-                    <span className="font-mono text-xs text-faint">{getCoursesByDomain(d.slug).length} formations</span>
-                  </div>
-                  <h3 className="mt-8 text-2xl font-semibold tracking-[-0.03em]">{d.name}</h3>
-                  <p className="mt-2 leading-relaxed text-muted">{d.tagline}</p>
-                  <dl className="mt-8 grid grid-cols-2 gap-4 border-t border-line pt-6 text-sm">
-                    <div>
-                      <dt className="text-faint">Temps conseillé</dt>
-                      <dd className="mt-1 text-fg/90">{d.weeklyTime}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-faint">Budget de départ</dt>
-                      <dd className="mt-1 text-fg/90">{formatBudget(d.startBudget.min, d.startBudget.max)}</dd>
-                    </div>
-                  </dl>
-                  {d.riskNotice && (
-                    <p className="mt-5 flex items-center gap-2 text-xs text-[#ffb3b3]">
-                      <Icon name="alert" className="size-3.5" /> Risque de perte en capital — formations pédagogiques uniquement
-                    </p>
-                  )}
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-7 text-sm text-muted transition group-hover/spot:text-fg">
-                    Explorer le domaine <Icon name="arrow-right" className="size-4 transition-transform group-hover/spot:translate-x-0.5" />
-                  </span>
-                </Link>
-              </SpotlightCard>
+            <Reveal key={d.slug} delay={i * 0.05}>
+              <Link href={`/domaines/${d.slug}`} className="paper tape group block h-full p-6 pt-8 transition-transform duration-300 hover:-translate-y-1" style={{ rotate: `${[-1.2, 0.8, -0.6, 1.1][i]}deg` }}>
+                <Icon name={d.icon} className="size-8 text-[#171717]" strokeWidth={1.8} />
+                <h3 className="display mt-5 text-4xl text-[#171717]">{d.name}</h3>
+                <dl className="mt-6 grid gap-2 border-t-2 border-[#171717]/15 pt-4 text-sm text-[#171717]">
+                  <div className="flex justify-between gap-2"><dt className="text-[#171717]/60">Budget</dt><dd className="font-bold">{formatBudget(d.startBudget.min, d.startBudget.max)}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-[#171717]/60">Temps</dt><dd className="font-bold">{d.weeklyTime.replace(" / semaine", "/sem.")}</dd></div>
+                </dl>
+                {d.riskNotice && <p className="mt-4 inline-block bg-red px-2 py-0.5 text-xs font-bold uppercase text-white">Risque de perte en capital</p>}
+                <span className="display mt-5 flex items-center gap-1 text-lg text-[#171717] group-hover:underline">Explorer <Icon name="arrow-right" className="size-4" /></span>
+              </Link>
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-const steps = [
-  { icon: "compass" as IconName, title: "Réponds à 10 questions", text: "Ta situation, ton temps, ton budget, tes envies et ce qui te bloque. Deux minutes, sans inscription." },
-  { icon: "target" as IconName, title: "Découvre tes compatibilités", text: "Un score calculé pour chaque domaine, avec les raisons, les contraintes et les points de vigilance." },
-  { icon: "route" as IconName, title: "Suis ton parcours", text: "Cinq étapes, de la découverte au premier projet, avec une durée estimée selon ton rythme." },
-];
-
-function Method() {
-  return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="methode">
-      <div className="container-x grid items-center gap-14 lg:grid-cols-2">
-        <div>
-          <Reveal>
-            <SectionHeading eyebrow="Comment ça marche" title={<span id="methode">Une méthode, pas une intuition.</span>} lead="Notre algorithme compare tes réponses aux exigences réelles de chaque domaine. Il ne te dit pas ce que tu « dois » faire : il t'aide à choisir en connaissance de cause." />
-          </Reveal>
-          <ol className="mt-10 grid gap-6">
-            {steps.map((s, i) => (
-              <Reveal as="li" key={s.title} delay={i * 0.08} className="flex gap-5">
-                <div className="grid size-11 shrink-0 place-items-center rounded-xl border border-line-strong bg-white/[0.03] text-[#9db4ff]">
-                  <Icon name={s.icon} className="size-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold tracking-tight">{s.title}</h3>
-                  <p className="mt-1 leading-relaxed text-muted">{s.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-          <Reveal delay={0.2}>
-            <Link href="/methode" className="mt-10 inline-flex items-center gap-1.5 text-sm text-[#9db4ff] hover:text-fg">
-              Voir la méthode de calcul en détail <Icon name="arrow-right" className="size-4" />
-            </Link>
-          </Reveal>
-        </div>
-        <Reveal delay={0.1}>
-          <ResultPreview />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function ResultPreview() {
-  const rows = [
-    { name: "Création de contenu avec l'IA", score: 89, color: "from-cyan to-electric" },
-    { name: "Création de sites Internet", score: 85, color: "from-electric to-violet" },
-    { name: "Marketing digital", score: 83, color: "from-violet to-electric" },
-  ];
-  return (
-    <div className="ring-gradient relative rounded-[28px] bg-[linear-gradient(180deg,#0e1226,#090b16)] p-6 shadow-[0_40px_100px_-30px_rgb(76_125_255/0.45)] sm:p-8">
-      <div className="flex items-center justify-between">
-        <span className="eyebrow">Exemple de résultat</span>
-        <span className="rounded-full border border-line px-2.5 py-1 font-mono text-[0.65rem] text-faint">Profil Créatif</span>
-      </div>
-      <p className="mt-5 text-sm text-muted">Étudiant · 3 à 5 h par semaine · budget 50 à 100 € · attiré par le marketing et la technologie</p>
-      <div className="mt-7 grid gap-5">
-        {rows.map((r) => (
-          <div key={r.name}>
-            <div className="flex items-baseline justify-between gap-4 text-sm">
-              <span className="text-fg/90">{r.name}</span>
-              <span className="font-mono text-fg">{r.score} %</span>
-            </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
-              <div className={`h-full rounded-full bg-gradient-to-r ${r.color}`} style={{ width: `${r.score}%` }} />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-7 rounded-2xl border border-warn/20 bg-warn/[0.05] p-4 text-sm">
-        <p className="font-medium text-warn">Point de vigilance · E-commerce</p>
-        <p className="mt-1 text-[#e8d6b5]/80">Démarrer demande généralement au moins 150 €. Ton budget actuel est inférieur : commence par la théorie et une validation gratuite.</p>
-      </div>
-      <p className="mt-5 text-xs text-faint">Score de compatibilité calculé, et non probabilité de réussite.</p>
-    </div>
-  );
-}
-
-function QuizCta() {
-  return (
-    <section className="relative py-16 sm:py-24" aria-labelledby="questionnaire">
-      <div className="container-x">
-        <Reveal>
-          <div className="ring-gradient noise relative overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,#0f1530,#0a0c19_50%,#0d1426)] px-6 py-16 text-center sm:px-12 sm:py-20">
-            <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(76_125_255/0.35),transparent)]" />
-            <div className="pointer-events-none absolute -bottom-40 right-0 h-80 w-80 rounded-full bg-[radial-gradient(closest-side,rgb(63_208_232/0.18),transparent)]" />
-            <div className="relative">
-              <Eyebrow className="justify-center">Questionnaire d&apos;orientation</Eyebrow>
-              <h2 id="questionnaire" className="mx-auto mt-5 max-w-3xl text-[clamp(2rem,5vw,3.6rem)] font-semibold leading-[1.03] tracking-[-0.04em] text-gradient text-balance">
-                Deux minutes pour y voir plus clair.
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted">
-                10 questions. Un profil détaillé, trois domaines compatibles, leurs contraintes et un parcours en cinq étapes. Gratuit, sans inscription.
-              </p>
-              <div className="mt-9 flex justify-center">
-                <FindPathButton size="lg">Commencer le questionnaire</FindPathButton>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
@@ -322,57 +182,82 @@ function QuizCta() {
 
 function Popular() {
   return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="populaires">
+    <section className="relative py-20" aria-labelledby="formations">
       <div className="container-x">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <Reveal>
-            <SectionHeading eyebrow="Formations" title={<span id="populaires">Par où commencent la plupart des parcours.</span>} lead="Des formations d'entrée, accessibles aux débutants, avec un programme entièrement public." />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ButtonLink href="/formations" variant="secondary" arrow>
-              Tout le catalogue
-            </ButtonLink>
-          </Reveal>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <h2 id="formations" className="display text-[clamp(3rem,8vw,6rem)]">Par où commencer.</h2>
+          <ButtonLink href="/formations" variant="secondary" arrow>Tout le catalogue</ButtonLink>
         </div>
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {popularCourses.slice(0, 6).map((c, i) => (
-            <Reveal key={c.slug} delay={(i % 3) * 0.06}>
+            <Reveal key={c.slug} delay={(i % 3) * 0.05}>
               <CourseCard course={c} />
             </Reveal>
           ))}
         </div>
-        <p className="mt-6 text-xs text-faint">Tarifs de lancement indicatifs, susceptibles d&apos;évoluer avant l&apos;ouverture des inscriptions.</p>
+        <p className="mt-5 text-xs text-faint">Tarifs de lancement indicatifs.</p>
       </div>
     </section>
   );
 }
 
-const commitments: { icon: IconName; title: string; text: string }[] = [
-  { icon: "shield", title: "Aucune promesse de revenus", text: "Nous vendons des compétences. Jamais de captures de gains, jamais de « liberté financière en 30 jours »." },
-  { icon: "alert", title: "Les risques, toujours affichés", text: "Budget, temps, difficultés et risques financiers sont indiqués clairement, avant tout achat." },
-  { icon: "book", title: "Programmes 100 % publics", text: "Chaque module et chaque leçon sont visibles avant l'inscription. Tu sais exactement ce que tu achètes." },
-  { icon: "clock", title: "Pas de fausse urgence", text: "Pas de compte à rebours, pas de « dernières places ». Tu décides à ton rythme." },
-  { icon: "eye", title: "Une méthode transparente", text: "Le fonctionnement de notre algorithme d'orientation est documenté publiquement." },
-  { icon: "lock", title: "Tes données t'appartiennent", text: "Le questionnaire fonctionne sans compte. Aucune revente de données, jamais." },
+function WeeklyTop() {
+  return (
+    <section className="relative py-20" aria-labelledby="top">
+      <div className="container-x">
+        <p className="eyebrow">Remise à zéro chaque lundi</p>
+        <h2 id="top" className="display mt-3 text-[clamp(3rem,8vw,6rem)]">Le top <span className="text-lime">de la semaine.</span></h2>
+        <RankingBoard compact />
+      </div>
+    </section>
+  );
+}
+
+function Propose() {
+  return (
+    <section className="relative py-16" aria-labelledby="proposer">
+      <div className="container-x">
+        <div className="paper torn grid items-center gap-8 px-7 py-12 sm:px-12 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 id="proposer" className="display text-[clamp(2.8rem,7vw,5.4rem)] text-[#171717]">Tu sais faire ? <span className="bg-lime px-2">Transmets.</span></h2>
+            <p className="mt-4 max-w-md font-semibold text-[#171717]/80">Propose ta formation. On la vérifie leçon par leçon. Si elle respecte la charte, elle est certifiée NO LARP.</p>
+            <Link href="/proposer" className="mt-7 inline-flex h-13 items-center gap-2 rounded-md bg-[#171717] px-6 font-display text-xl uppercase text-lime transition-transform hover:-translate-y-0.5">
+              Proposer ma formation <Icon name="arrow-right" className="size-5" />
+            </Link>
+          </div>
+          <div className="justify-self-center"><CertifiedBadge size="lg" /></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const rules = [
+  { t: "Zéro promesse de revenus", d: "On vend des compétences. Pas des captures de gains." },
+  { t: "Risques affichés", d: "Budget, temps, difficultés : tout est dit avant d'acheter." },
+  { t: "Programmes publics", d: "Chaque leçon est visible avant l'inscription." },
+  { t: "Pas de fausse urgence", d: "Pas de compte à rebours. Tu décides à ton rythme." },
 ];
 
-function Commitments() {
+function Rules() {
   return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="engagements">
+    <section className="relative py-20" aria-labelledby="regles">
       <div className="container-x">
-        <Reveal>
-          <SectionHeading align="center" eyebrow="Notre philosophie" title={<span id="engagements">La confiance se mérite. Voici nos engagements.</span>} />
-        </Reveal>
-        <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {commitments.map((c, i) => (
-            <Reveal key={c.title} delay={(i % 3) * 0.06} className="bg-ink">
-              <div className="h-full bg-white/[0.012] p-7 transition-colors duration-500 hover:bg-white/[0.03]">
-                <Icon name={c.icon} className="size-6 text-cyan" />
-                <h3 className="mt-5 text-lg font-semibold tracking-tight">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{c.text}</p>
-              </div>
-            </Reveal>
+        <h2 id="regles" className="display text-[clamp(3rem,8vw,6rem)]">Nos règles. <span className="text-lime">Non négociables.</span></h2>
+        <ol className="mt-12 grid gap-px overflow-hidden border-2 border-line-strong bg-line-strong sm:grid-cols-2 lg:grid-cols-4">
+          {rules.map((r, i) => (
+            <li key={r.t} className="bg-ink p-6">
+              <span className="display text-5xl text-lime">0{i + 1}</span>
+              <p className="display mt-4 text-2xl">{r.t}</p>
+              <p className="mt-2 text-sm text-muted">{r.d}</p>
+            </li>
           ))}
+        </ol>
+        <div className="mt-8 flex justify-end">
+          <span className="paper tape inline-block rotate-3 px-6 py-4 text-center">
+            <span className="display block text-3xl leading-none text-[#171717]">Zéro</span>
+            <span className="display block text-3xl leading-none text-[#171717]">bullsh*t</span>
+          </span>
         </div>
       </div>
     </section>
@@ -380,44 +265,15 @@ function Commitments() {
 }
 
 function FaqSection() {
-  const items = faq.filter((_, i) => [0, 1, 5, 8, 7, 3].includes(i));
+  const items = faq.filter((_, i) => [0, 1, 5, 8].includes(i));
   return (
-    <section className="relative py-24 sm:py-32" aria-labelledby="faq">
-      <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.5fr]">
-        <Reveal>
-          <SectionHeading eyebrow="FAQ" title={<span id="faq">Les questions qu&apos;on nous pose.</span>} lead="Et si la tienne n'y est pas, écris-nous." />
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/faq" variant="secondary" arrow>
-              Toute la FAQ
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="ghost">
-              Nous contacter
-            </ButtonLink>
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <Accordion items={items} />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function FinalCta() {
-  return (
-    <section className="relative pt-16">
-      <div className="container-x text-center">
-        <Reveal>
-          <h2 className="mx-auto max-w-4xl text-[clamp(2.2rem,6vw,4.6rem)] font-semibold leading-[1] tracking-[-0.045em] text-balance">
-            <span className="text-gradient">Le bon moment pour commencer,</span> <span className="text-accent">c&apos;est quand tu sais où aller.</span>
-          </h2>
-          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <FindPathButton size="lg" />
-            <ButtonLink href="/formations" variant="secondary" size="lg">
-              Découvrir les formations
-            </ButtonLink>
-          </div>
-        </Reveal>
+    <section className="relative py-16" aria-labelledby="faq">
+      <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.6fr]">
+        <div>
+          <h2 id="faq" className="display text-[clamp(3rem,8vw,6rem)]">Questions.</h2>
+          <ButtonLink href="/faq" variant="secondary" arrow className="mt-6">Toute la FAQ</ButtonLink>
+        </div>
+        <Accordion items={items} />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCourse } from "@/data/courses";
+import { isCommunitySlug } from "@/lib/community/types";
 import { clientIp, hasSupabaseAdmin, rateLimit, supabaseInsert } from "@/lib/server/services";
 import { toFieldErrors, waitlistSchema } from "@/lib/validation";
 
@@ -12,7 +13,7 @@ export async function POST(req: Request) {
   if (!parsed.success) return NextResponse.json({ error: "Formulaire invalide.", fields: toFieldErrors(parsed.error) }, { status: 400 });
   const { email, name, course, website } = parsed.data;
   if (website) return NextResponse.json({ ok: true }); // robot : on ignore silencieusement
-  if (!getCourse(course)) return NextResponse.json({ error: "Formation inconnue." }, { status: 400 });
+  if (!getCourse(course) && !isCommunitySlug(course)) return NextResponse.json({ error: "Formation inconnue." }, { status: 400 });
 
   if (!hasSupabaseAdmin()) {
     console.info("[waitlist] Supabase non configuré — inscription non persistée :", { course });

@@ -16,7 +16,7 @@ export function SpotlightCard({ children, className = "", glow = "rgb(76 125 255
     <div
       ref={ref}
       onPointerMove={onMove}
-      className={`group/spot relative overflow-hidden rounded-3xl border border-line bg-[linear-gradient(180deg,rgb(255_255_255/0.035),rgb(255_255_255/0.01))] transition-[border-color,transform] duration-500 hover:border-line-strong ${className}`}
+      className={`group/spot relative overflow-hidden rounded-lg border border-line bg-night transition-[border-color,transform] duration-500 hover:border-line-strong ${className}`}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100"
