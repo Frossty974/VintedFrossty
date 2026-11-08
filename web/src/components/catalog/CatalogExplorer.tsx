@@ -7,6 +7,7 @@ import { courses } from "@/data/courses";
 import { domains } from "@/data/domains";
 import type { Level } from "@/data/types";
 import { CourseCard } from "./CourseCard";
+import { useCommunityCourses } from "@/lib/community/useCommunity";
 
 const levels: (Level | "Tous")[] = ["Tous", "Débutant", "Intermédiaire", "Avancé"];
 
@@ -14,16 +15,19 @@ export function CatalogExplorer({ initialDomain }: { initialDomain?: string }) {
   const [domain, setDomain] = useState<string>(domains.some((d) => d.slug === initialDomain) ? initialDomain! : "all");
   const [level, setLevel] = useState<(typeof levels)[number]>("Tous");
   const [query, setQuery] = useState("");
+  const [source, setSource] = useState<"all" | "official" | "community">("all");
+  const { list: community } = useCommunityCourses();
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return courses.filter(
+    const pool = source === "official" ? courses : source === "community" ? community : [...courses, ...community];
+    return pool.filter(
       (c) =>
         (domain === "all" || c.domain === domain) &&
         (level === "Tous" || c.level === level) &&
         (!q || [c.title, c.subtitle, ...c.skills].some((s) => s.toLowerCase().includes(q))),
     );
-  }, [domain, level, query]);
+  }, [domain, level, query, source, community]);
 
   const selectDomain = (slug: string) => {
     setDomain(slug);
@@ -67,6 +71,15 @@ export function CatalogExplorer({ initialDomain }: { initialDomain?: string }) {
             />
           </label>
           <label className="relative block">
+            <span className="sr-only">Origine</span>
+            <select value={source} onChange={(e) => setSource(e.target.value as typeof source)} className="h-10 w-full appearance-none rounded-full border border-line bg-[#171717] pl-4 pr-10 text-sm text-fg focus:border-electric/60 focus:outline-none sm:w-auto">
+              <option value="all">Toutes les origines</option>
+              <option value="official">Formations NO LARP</option>
+              <option value="community">Communauté certifiée ({community.length})</option>
+            </select>
+            <Icon name="chevron-down" className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-faint" />
+          </label>
+          <label className="relative block">
             <span className="sr-only">Niveau</span>
             <select value={level} onChange={(e) => setLevel(e.target.value as typeof level)} className="h-10 w-full appearance-none rounded-full border border-line bg-[#171717] pl-4 pr-10 text-sm text-fg focus:border-electric/60 focus:outline-none sm:w-auto">
               {levels.map((l) => (
@@ -92,7 +105,7 @@ export function CatalogExplorer({ initialDomain }: { initialDomain?: string }) {
       {list.length === 0 && (
         <div className="mt-10 rounded-lg border border-dashed border-line-strong p-10 text-center text-muted">
           Aucune formation ne correspond à ces filtres.
-          <button className="ml-2 text-lime underline-offset-4 hover:underline" onClick={() => { setQuery(""); setLevel("Tous"); selectDomain("all"); }}>
+          <button className="ml-2 text-lime underline-offset-4 hover:underline" onClick={() => { setQuery(""); setLevel("Tous"); setSource("all"); selectDomain("all"); }}>
             Réinitialiser
           </button>
         </div>

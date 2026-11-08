@@ -11,14 +11,18 @@ import { useAccount } from "@/lib/account/AccountProvider";
 import { useAccountData } from "@/lib/account/useAccountData";
 import { downloadSyllabus } from "@/lib/download";
 import { getTrack } from "@/lib/orientation/tracks";
+import { useCommunityCourses } from "@/lib/community/useCommunity";
+import { MySubmissions } from "@/components/community/MySubmissions";
 
 export function Dashboard() {
   const router = useRouter();
   const { backend } = useAccount();
   const { user, loading, error, quiz, enrollments, progress } = useAccountData();
+  const { list: community } = useCommunityCourses();
   if (!user) return null;
 
-  const enrolled = enrollments.map((e) => ({ e, course: getCourse(e.courseSlug) })).filter((x) => x.course);
+  const resolve = (slug: string) => getCourse(slug) ?? community.find((c) => c.slug === slug);
+  const enrolled = enrollments.map((e) => ({ e, course: resolve(e.courseSlug) })).filter((x) => x.course);
   const doneLessons = Object.values(progress).reduce((s, l) => s + l.length, 0);
   const fmt = (iso: string) => new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 
@@ -127,6 +131,7 @@ export function Dashboard() {
           )}
         </section>
       </div>
+      <MySubmissions />
     </div>
   );
 }

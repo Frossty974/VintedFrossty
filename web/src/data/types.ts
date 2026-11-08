@@ -83,4 +83,10 @@ export interface Course {
   modules: CourseModule[];
   popular?: boolean;
   resources: string[];
+  /** Présent uniquement pour les formations proposées par la communauté. */
+  community?: {
+    id: string;
+    author: string;
+    certifiedAt?: string;
+  };
 }

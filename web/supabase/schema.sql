@@ -65,3 +65,76 @@ create table if not exists public.contact_messages (
   created_at timestamptz not null default now()
 );
 alter table public.contact_messages enable row level security;
+
+-- =====================================================================
+-- Formations proposées par la communauté + modération + certification
+-- =====================================================================
+
+-- Comptes autorisés à modérer. Ajouter un modérateur :
+--   insert into public.admins (user_id) values ('<uuid de l''utilisateur>');
+create table if not exists public.admins (
+  user_id uuid primary key references auth.users(id) on delete cascade
+);
+alter table public.admins enable row level security;
+
+create or replace function public.is_admin() returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.admins where user_id = auth.uid());
+$$;
+
+create table if not exists public.community_courses (
+  id text primary key default substr(md5(random()::text || clock_timestamp()::text), 1, 10),
+  author_id uuid not null references auth.users(id) on delete cascade,
+  author_name text not null,
+  status text not null default 'pending' check (status in ('pending', 'changes', 'approved', 'rejected')),
+  content jsonb not null,
+  review_note text,
+  reviewed_at timestamptz,
+  certified_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists community_courses_status_idx on public.community_courses(status);
+alter table public.community_courses enable row level security;
+
+-- Lecture : formations certifiées pour tous, ses propres soumissions, tout pour les modérateurs.
+create policy "community: lecture" on public.community_courses for select
+  using (status = 'approved' or author_id = auth.uid() or public.is_admin());
+-- Création : uniquement en attente, jamais pré-certifiée.
+create policy "community: soumission" on public.community_courses for insert
+  with check (author_id = auth.uid() and status = 'pending' and certified_at is null);
+-- Modification par l'auteur : tant que non validée, et repasse forcément en vérification.
+create policy "community: modification auteur" on public.community_courses for update
+  using (author_id = auth.uid() and status in ('pending', 'changes'))
+  with check (author_id = auth.uid() and status = 'pending' and certified_at is null);
+-- Modération.
+create policy "community: modération" on public.community_courses for update
+  using (public.is_admin()) with check (public.is_admin());
+
+-- =====================================================================
+-- Popularité : événements anonymes et classement hebdomadaire
+-- =====================================================================
+create table if not exists public.course_events (
+  id bigint generated always as identity primary key,
+  course_slug text not null,
+  type text not null check (type in ('view', 'enroll', 'lesson')),
+  visitor text not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists course_events_time_idx on public.course_events(created_at);
+alter table public.course_events enable row level security; -- écriture via l'API serveur uniquement
+
+-- Agrégat public (aucune donnée individuelle exposée). Une vue = un visiteur distinct par jour.
+create or replace function public.course_popularity(from_ts timestamptz, to_ts timestamptz)
+returns table (course_slug text, views bigint, enrollments bigint, lessons bigint)
+language sql stable security definer set search_path = public as $$
+  select course_slug,
+         count(distinct (visitor, date_trunc('day', created_at))) filter (where type = 'view') as views,
+         count(*) filter (where type = 'enroll') as enrollments,
+         count(*) filter (where type = 'lesson') as lessons
+  from public.course_events
+  where created_at >= from_ts and created_at < to_ts
+  group by course_slug;
+$$;
+grant execute on function public.course_popularity(timestamptz, timestamptz) to anon, authenticated;
+grant execute on function public.is_admin() to authenticated;

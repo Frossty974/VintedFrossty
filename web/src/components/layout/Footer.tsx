@@ -10,6 +10,8 @@ const cols = [
     links: [
       { href: "/orientation", label: "Trouver ma voie" },
       { href: "/formations", label: "Formations" },
+      { href: "/classement", label: "Classement de la semaine" },
+      { href: "/proposer", label: "Proposer une formation" },
       { href: "/methode", label: "Méthode" },
       { href: "/espace", label: "Mon espace" },
     ],

@@ -3,12 +3,13 @@ import { notFound } from "next/navigation";
 import { CoursePlayer } from "@/components/account/CoursePlayer";
 import { RequireAuth } from "@/components/account/RequireAuth";
 import { getCourse } from "@/data/courses";
+import { isCommunitySlug } from "@/lib/community/types";
 
 export const metadata: Metadata = { title: "Ma formation", robots: { index: false } };
 
 export default async function CourseSpacePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!getCourse(slug)) notFound();
+  if (!getCourse(slug) && !isCommunitySlug(slug)) notFound();
   return (
     <RequireAuth>
       <CoursePlayer slug={slug} />

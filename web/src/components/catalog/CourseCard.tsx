@@ -4,13 +4,15 @@ import { formatHours, formatPrice } from "@/components/ui/primitives";
 import { lessonCount } from "@/data/courses";
 import { getDomain } from "@/data/domains";
 import type { Course } from "@/data/types";
+import { CertifiedBadge } from "@/components/community/CertifiedBadge";
+import { courseHref } from "@/lib/community/types";
 
 export function CourseCard({ course }: { course: Course }) {
   const domain = getDomain(course.domain)!;
   return (
-    <Link href={`/formations/${course.slug}`} className="paper group flex h-full flex-col rounded-md p-5 transition-transform duration-200 hover:-translate-y-1 hover:rotate-[-0.6deg]">
+    <Link href={courseHref(course)} className="paper group flex h-full flex-col rounded-md p-5 transition-transform duration-200 hover:-translate-y-1 hover:rotate-[-0.6deg]">
       <div className="flex items-center justify-between gap-3">
-        <span className="bg-red px-2 py-0.5 font-display text-sm uppercase tracking-wide text-white">Formation</span>
+        {course.community ? <CertifiedBadge size="sm" /> : <span className="bg-red px-2 py-0.5 font-display text-sm uppercase tracking-wide text-white">Formation</span>}
         <span className="flex items-center gap-1.5 text-xs font-semibold text-[#171717]/60">
           <Icon name={domain.icon} className="size-4" />
           {domain.name}
@@ -18,6 +20,7 @@ export function CourseCard({ course }: { course: Course }) {
       </div>
       <h3 className="mt-4 text-[1.4rem] font-extrabold leading-tight text-[#171717]">{course.title}</h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-[#171717]/70">{course.subtitle}</p>
+      {course.community && <p className="mt-3 text-xs font-semibold text-[#171717]/60">Par {course.community.author}</p>}
       {domain.riskNotice && <p className="mt-3 self-start bg-[#171717] px-2 py-0.5 text-[0.7rem] font-bold uppercase text-red">Risque de perte en capital</p>}
       <div className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-xs font-medium text-[#171717]/70">
         <span className="inline-flex items-center gap-1"><Icon name="layers" className="size-3.5" />{course.level}</span>

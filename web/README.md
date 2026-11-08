@@ -30,6 +30,21 @@ Tout le site est navigable et fonctionnel sans clé externe :
 - **Espace membre en mode démo** : création de compte, historique des questionnaires, accès aperçu aux formations, suivi de progression par leçon, téléchargement du programme. En mode démo, les données restent dans le navigateur et c'est indiqué à l'écran.
 - **Formulaires** (contact, liste d'attente) : validation côté client et serveur, anti-robots, limitation de débit. Sans Supabase, les envois sont acceptés mais ne sont pas enregistrés (un message est écrit dans les logs du serveur).
 
+## Formations de la communauté et certification
+
+- `/proposer` : n'importe quel membre connecté propose une formation (programme complet, objectifs, prix). Un **pré-contrôle automatique** (`src/lib/community/precheck.ts`) bloque les promesses de revenus, l'absence de risque affirmée, etc.
+- `/admin` : l'équipe relit, puis **approuve et certifie**, **demande des modifications** (message obligatoire) ou **refuse**. Une alerte bloquante empêche l'approbation.
+- L'auteur suit le statut et les retours dans `/espace`, corrige et renvoie.
+- Une formation approuvée reçoit le badge **Certifié NO LARP** et rejoint le catalogue (filtre « Communauté certifiée »).
+- Avec Supabase, seuls les comptes listés dans la table `admins` accèdent à la modération :
+  `insert into public.admins (user_id) values ('<uuid>');`
+
+## Classement hebdomadaire
+
+`/classement` (et un aperçu sur l'accueil) classe les formations selon leur activité réelle de la semaine (lundi → dimanche) :
+`score = visites × 1 + inscriptions × 5 + leçons terminées × 2`, une visite = un visiteur unique par jour.
+Les événements sont anonymes (identifiant aléatoire du navigateur) et passent par `/api/track`. Le classement est calculé par la fonction SQL `course_popularity`. Sans Supabase, il ne compte que l'activité du navigateur (signalé à l'écran). Aucune donnée n'est inventée : sans activité, la page l'indique.
+
 ## Ce qu'il reste à configurer
 
 ### 1. Supabase (comptes et base de données)

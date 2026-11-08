@@ -10,6 +10,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { popularCourses } from "@/data/courses";
 import { domains } from "@/data/domains";
 import { faq } from "@/data/faq";
+import { RankingBoard } from "@/components/community/RankingBoard";
+import { CertifiedBadge } from "@/components/community/CertifiedBadge";
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
       <Lambo />
       <Domains />
       <Popular />
+      <WeeklyTop />
+      <Propose />
       <Rules />
       <FaqSection />
     </>
@@ -192,6 +196,37 @@ function Popular() {
           ))}
         </div>
         <p className="mt-5 text-xs text-faint">Tarifs de lancement indicatifs.</p>
+      </div>
+    </section>
+  );
+}
+
+function WeeklyTop() {
+  return (
+    <section className="relative py-20" aria-labelledby="top">
+      <div className="container-x">
+        <p className="eyebrow">Remise à zéro chaque lundi</p>
+        <h2 id="top" className="display mt-3 text-[clamp(3rem,8vw,6rem)]">Le top <span className="text-lime">de la semaine.</span></h2>
+        <RankingBoard compact />
+      </div>
+    </section>
+  );
+}
+
+function Propose() {
+  return (
+    <section className="relative py-16" aria-labelledby="proposer">
+      <div className="container-x">
+        <div className="paper torn grid items-center gap-8 px-7 py-12 sm:px-12 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 id="proposer" className="display text-[clamp(2.8rem,7vw,5.4rem)] text-[#171717]">Tu sais faire ? <span className="bg-lime px-2">Transmets.</span></h2>
+            <p className="mt-4 max-w-md font-semibold text-[#171717]/80">Propose ta formation. On la vérifie leçon par leçon. Si elle respecte la charte, elle est certifiée NO LARP.</p>
+            <Link href="/proposer" className="mt-7 inline-flex h-13 items-center gap-2 rounded-md bg-[#171717] px-6 font-display text-xl uppercase text-lime transition-transform hover:-translate-y-0.5">
+              Proposer ma formation <Icon name="arrow-right" className="size-5" />
+            </Link>
+          </div>
+          <div className="justify-self-center"><CertifiedBadge size="lg" /></div>
+        </div>
       </div>
     </section>
   );

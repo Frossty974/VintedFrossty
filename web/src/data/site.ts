@@ -12,8 +12,9 @@ export const site = {
 
 export const nav = [
   { href: "/formations", label: "Formations" },
+  { href: "/classement", label: "Classement" },
   { href: "/domaines", label: "Domaines" },
+  { href: "/proposer", label: "Proposer" },
   { href: "/methode", label: "Méthode" },
-  { href: "/a-propos", label: "À propos" },
   { href: "/faq", label: "FAQ" },
 ];

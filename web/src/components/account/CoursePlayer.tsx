@@ -4,13 +4,30 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { buttonClass, ButtonLink, DemoBadge, RiskNotice } from "@/components/ui/primitives";
-import { getCourse, lessonCount } from "@/data/courses";
+import { lessonCount } from "@/data/courses";
+import type { Course } from "@/data/types";
+import { courseHref } from "@/lib/community/types";
+import { useResolvedCourse } from "@/lib/community/useCommunity";
 import { getDomain } from "@/data/domains";
 import { useAccountData } from "@/lib/account/useAccountData";
 import { downloadSyllabus } from "@/lib/download";
 
 export function CoursePlayer({ slug }: { slug: string }) {
-  const course = getCourse(slug)!;
+  const { course, loading } = useResolvedCourse(slug);
+  if (loading) return <div className="container-x grid min-h-[60vh] place-items-center pt-24"><span className="size-8 animate-spin rounded-full border-2 border-white/10 border-t-lime" /></div>;
+  if (!course) {
+    return (
+      <section className="container-x flex min-h-[70vh] flex-col items-center justify-center pt-24 text-center">
+        <h1 className="display text-5xl">Formation indisponible</h1>
+        <div className="mt-8"><ButtonLink href="/espace" arrow>Mon espace</ButtonLink></div>
+      </section>
+    );
+  }
+  return <Player course={course} />;
+}
+
+function Player({ course }: { course: Course }) {
+  const slug = course.slug;
   const domain = getDomain(course.domain)!;
   const { enrollments, progress, setLesson, loading } = useAccountData();
   const flat = useMemo(() => course.modules.flatMap((m, mi) => m.lessons.map((l, li) => ({ key: `${mi}-${li}`, title: l, module: m.title, mi }))), [course]);
@@ -29,8 +46,8 @@ export function CoursePlayer({ slug }: { slug: string }) {
         <h1 className="text-3xl font-bold">Tu n&apos;es pas encore inscrit à cette formation</h1>
         <p className="mt-3 max-w-md text-muted">{course.title}</p>
         <div className="mt-8 flex gap-3">
-          <ButtonLink href={`/formations/${slug}/inscription`} arrow>S&apos;inscrire</ButtonLink>
-          <ButtonLink href={`/formations/${slug}`} variant="secondary">Voir le programme</ButtonLink>
+          <ButtonLink href={`${courseHref(course)}/inscription`} arrow>S&apos;inscrire</ButtonLink>
+          <ButtonLink href={courseHref(course)} variant="secondary">Voir le programme</ButtonLink>
         </div>
       </section>
     );
